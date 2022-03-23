@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="AspectRatioImageView">
+        <attr name="ari_ratio" format="float" />
+        <attr name="radius" format="dimension" />
+        <attr name="corner">
+            <flag name="topLeft" value="1" />
+            <flag name="topRight" value="2" />
+            <flag name="bottomRight" value="3" />
+            <flag name="bottomLeft" value="4" />
+            <flag name="left" value="5" />
+            <flag name="right" value="6" />
+            <flag name="top" value="7" />
+            <flag name="bottom" value="8" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="SingleRowCalendar">
+        <attr name="pastDaysCount" format="integer" />
+        <attr name="futureDaysCount" format="integer" />
+        <attr name="includeCurrentDate" format="boolean" />
+        <attr name="initialPositionIndex" format="integer" />
+        <attr name="multiSelection" format="boolean" />
+        <attr name="deselection" format="boolean" />
+        <attr name="longPress" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="Toolbar">
+        <attr name="left_icon" format="reference" />
+        <attr name="title_text" format="string" />
+        <attr name="righ_text" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="siv_SuperImageView">
+
+        <attr name="siv_cropImplementation" format="enum" />
+        <attr name="siv_roundedCornersImplementation" format="string" />
+    </declare-styleable>
+    <declare-styleable name="siv_ImageCrop">
+        <attr name="siv_crop">
+            <enum name="topLeft" value="0" />
+            <enum name="centerLeft" value="1" />
+            <enum name="bottomLeft" value="2" />
+            <enum name="topRight" value="3" />
+            <enum name="centerRight" value="4" />
+            <enum name="bottomRight" value="5" />
+            <enum name="centerTop" value="6" />
+            <enum name="centerBottom" value="7" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="CropImageView">
+        <attr name="crop">
+            <enum name="topLeft" value="0" />
+            <enum name="centerLeft" value="1" />
+            <enum name="bottomLeft" value="2" />
+            <enum name="topRight" value="3" />
+            <enum name="centerRight" value="4" />
+            <enum name="bottomRight" value="5" />
+            <enum name="centerTop" value="6" />
+            <enum name="centerBottom" value="7" />
+        </attr>
+        <attr name="url" format="string" />
+    </declare-styleable>
+    <declare-styleable name="PinView">
+        <attr name="pinBackground" format="reference" />
+        <attr name="pinLength" format="integer" />
+        <attr name="pinWidth" format="dimension" />
+        <attr name="pinHeight" format="dimension" />
+        <attr name="splitWidth" format="dimension" />
+        <attr name="cursorVisible" format="boolean" />
+        <attr name="password" format="boolean" />
+        <attr name="forceKeyboard" format="boolean" />
+        <attr name="hint" format="string" />
+        <attr name="inputType" />
+        <attr name="textSize" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="EditCredit">
+        <attr name="separator" format="enum">
+            <enum name="no_separator" value="0" />
+            <enum name="spaces" value="1" />
+            <enum name="dashes" value="2" />
+        </attr>
+    </declare-styleable>
+    <attr name="inputType" format="enum">
+        <enum name="text" value="0" />
+        <enum name="number" value="1" />
+    </attr>
+
+    <declare-styleable name="MaskedEditText">
+        <attr name="mask" format="string" />
+        <attr name="notMaskedSymbol" format="string" />
+        <attr name="replacementChar" format="string" />
+        <attr name="deleteChar" format="string" />
+        <attr name="format" format="string" />
+        <attr name="maskIcon" format="reference" />
+        <attr name="maskIconColor" format="reference" />
+        <attr name="android:inputType" />
+    </declare-styleable>
+</resources>

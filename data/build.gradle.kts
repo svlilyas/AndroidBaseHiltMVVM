@@ -5,6 +5,7 @@ plugins {
     kotlin(Plugins.ANDROID)
     kotlin(Plugins.KAPT)
     id(Plugins.KOTLIN_EXTENSIONS)
+    id(Plugins.DAGGER_HILT)
 }
 
 androidExtensions {
@@ -173,9 +174,9 @@ android {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
 
-    implementation(project(ModuleDependency.APP))
     kapt(libs.room.compiler)
-    api(libs.bundles.hilt)
+    api(libs.hiltAndroid)
+    kapt(libs.hiltCompiler)
 
     testImplementation(libs.bundles.test)
 

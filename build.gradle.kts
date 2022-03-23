@@ -7,6 +7,7 @@ plugins {
     id(Plugins.KTLINT_GRADLE)
     id(Plugins.ANDROID_JUNIT_5) apply false
     id(Plugins.SAFE_ARGS) apply false
+    id(Plugins.DAGGER_HILT) apply false
 }
 
 // all projects = root project + sub projects

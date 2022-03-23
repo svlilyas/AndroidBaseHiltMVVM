@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_component_1x">8dp</dimen>
+    <dimen name="margin_component_2x">16dp</dimen>
+    <dimen name="margin_component_3x">24dp</dimen>
+    <dimen name="margin_component_4x">32dp</dimen>
+    <dimen name="margin_component_5x">40dp</dimen>
+    <dimen name="margin_component_6x">48dp</dimen>
+    <dimen name="margin_component_7x">56dp</dimen>
+    <dimen name="margin_component_8x">64dp</dimen>
+    <dimen name="margin_component_9x">72dp</dimen>
+    <dimen name="margin_component_10x">80dp</dimen>
+    <dimen name="margin_component_11x">88dp</dimen>
+    <dimen name="margin_component_12x">96dp</dimen>
+
+    <dimen name="margin_icon_1x">4dp</dimen>
+    <dimen name="margin_icon_2x">8dp</dimen>
+    <dimen name="margin_icon_3x">12dp</dimen>
+    <dimen name="margin_icon_4x">16dp</dimen>
+    <dimen name="margin_icon_5x">20dp</dimen>
+    <dimen name="margin_icon_6x">24dp</dimen>
+
+    <dimen name="margin_0dp">0dp</dimen>
+    <dimen name="margin_1dp">1dp</dimen>
+    <dimen name="margin_48dp">48dp</dimen>
+    <dimen name="margin_6dp">6dp</dimen>
+    <dimen name="margin_10dp">10dp</dimen>
+    <dimen name="margin_large">32dp</dimen>
+
+    <dimen name="margin_20dp">20dp</dimen>
+    <dimen name="margin_28dp">28dp</dimen>
+    <dimen name="margin_34dp">34dp</dimen>
+    <dimen name="margin_52dp">52dp</dimen>
+    <dimen name="margin_44dp">44dp</dimen>
+    <dimen name="margin_150dp">150dp</dimen>
+    <dimen name="padding_page">20dp</dimen>
+    <dimen name="margin_200dp">200dp</dimen>
+    <dimen name="margin_210dp">210dp</dimen>
+    <dimen name="margin_220dp">220dp</dimen>
+    <dimen name="margin_250dp">250dp</dimen>
+    <dimen name="margin_260dp">260dp</dimen>
+    <dimen name="margin_420dp">420dp</dimen>
+    <dimen name="margin_460dp">460dp</dimen>
+
+    <dimen name="margin_medium">16dp</dimen>
+    <dimen name="margin_xlarge">48dp</dimen>
+    <dimen name="margin_24dp">24dp</dimen>
+    <dimen name="margin_140dp">140dp</dimen>
+    <dimen name="margin_120dp">120dp</dimen>
+    <dimen name="margin_165dp">165dp</dimen>
+    <dimen name="margin_180dp">180dp</dimen>
+
+
+    <dimen name="pmx_margin_small">5dp</dimen>
+    <dimen name="pmx_margin_medium">10dp</dimen>
+    <dimen name="pmx_margin_large">25dp</dimen>
+    <dimen name="pmx_divider">0.1dp</dimen>
+    <dimen name="pmx_dialog_title">18sp</dimen>
+
+    <dimen name="margin_110dp">110dp</dimen>
+    <dimen name="margin_4dp">4dp</dimen>
+    <dimen name="margin_90dp">90dp</dimen>
+    <dimen name="margin_2dp">2dp</dimen>
+    <dimen name="margin_3dp">3dp</dimen>
+    <dimen name="margin_256">256dp</dimen>
+    <dimen name="margin_12dp">12dp</dimen>
+
+    <!-- Typography -->
+    <dimen name="text_size_65dp">65dp</dimen>
+    <dimen name="text_size_6">34dp</dimen>
+    <dimen name="text_size_5">24dp</dimen>
+    <dimen name="text_size_4">21dp</dimen>
+    <dimen name="text_size_3">18dp</dimen>
+    <dimen name="text_size_2">16dp</dimen>
+    <dimen name="text_size_1">15dp</dimen>
+    <dimen name="text_size_0">14dp</dimen>
+    <dimen name="text_size_n1">13dp</dimen>
+    <dimen name="text_size_n2">12dp</dimen>
+    <dimen name="text_size_n3">10dp</dimen>
+
+    <!--TextLineHeight Typography-->
+    <dimen name="text_line_n3">12dp</dimen>
+    <dimen name="text_line_n2">16dp</dimen>
+    <dimen name="text_line_n1">18dp</dimen>
+    <dimen name="text_line_0">20dp</dimen>
+    <dimen name="text_line_1">22dp</dimen>
+    <dimen name="text_line_2">24dp</dimen>
+    <dimen name="text_line_3">26dp</dimen>
+    <dimen name="text_line_4">38dp</dimen>
+    <dimen name="text_line_5">34dp</dimen>
+    <dimen name="margin_36dp">36dp</dimen>
+    <dimen name="margin_40dp">40dp</dimen>
+    <dimen name="margin_268dp">268dp</dimen>
+    <dimen name="margin_270dp">270dp</dimen>
+    <dimen name="margin_310dp">310dp</dimen>
+    <dimen name="margin_320dp">320dp</dimen>
+
+</resources>

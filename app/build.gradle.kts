@@ -6,6 +6,7 @@ plugins {
     kotlin(Plugins.ANDROID)
     kotlin(Plugins.KAPT)
     id(Plugins.KOTLIN_EXTENSIONS)
+    id(Plugins.DAGGER_HILT)
 }
 
 androidExtensions {
@@ -28,6 +29,11 @@ android {
         multiDexEnabled = true
         testInstrumentationRunner = AndroidConfig.TEST_INSTRUMENTATION_RUNNER
 
+        javaCompileOptions {
+            annotationProcessorOptions {
+                argument("room.schemaLocation", "$projectDir/schemas")
+            }
+        }
         setProperty("archivesBaseName", "${AndroidConfig.APP_NAME}-$versionName($versionCode)")
     }
 
@@ -203,10 +209,16 @@ dependencies {
     api(libs.material)
     api(libs.coroutines)
     api(libs.lottie)
+    api(libs.hiltAndroid)
+    kapt(libs.hiltCompiler)
+    api(libs.multidex)
+    api(libs.bundles.glide)
 
     kapt(libs.room.compiler)
 
     testImplementation(libs.bundles.test)
+
+    // implementation(project(ModuleDependency.FEATURE_DATA))
 
     testRuntimeOnly(libs.junit.jupiter.engine)
 }

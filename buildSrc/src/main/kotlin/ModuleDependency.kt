@@ -22,7 +22,7 @@ object ModuleDependency {
      Return list of feature modules in the project
      */
     fun getFeatureModules(): Set<String> {
-        val featurePrefix = ":feature_"
+        val featurePrefix = ""
 
         return getAllModules()
             .filter { it.startsWith(featurePrefix) }

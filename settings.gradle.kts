@@ -9,7 +9,7 @@ enableFeaturePreview("ONE_LOCKFILE_PER_PROJECT")
 
 include(
     ":app",
-    ":data",
+    ":data"
 )
 
 // Gradle plugins are added via plugin management, not the classpath
@@ -34,6 +34,9 @@ pluginManagement {
 
         val navigationVersion: String by settings
         id("androidx.navigation.safeargs.kotlin") version navigationVersion
+
+        val hiltVersion: String by settings
+        id("dagger.hilt.android.plugin") version hiltVersion
 
         val detektVersion: String by settings
         id("io.gitlab.arturbosch.detekt") version detektVersion
@@ -61,6 +64,9 @@ pluginManagement {
                 "de.mannodermaus.android-junit5" -> {
                     val androidJnit5Coordinates: String by settings
                     useModule(androidJnit5Coordinates) // navigationVersion
+                }
+                "dagger.hilt.android.plugin" -> {
+                    useModule("com.google.dagger:hilt-android-gradle-plugin:2.38.1")
                 }
             }
         }
@@ -92,10 +98,10 @@ dependencyResolutionManagement {
 
             // Hilt
             version("hilt", "2.38.1")
-            alias("hilt-android").to("com.google.dagger", "hilt-android").versionRef("hilt")
-            alias("hilt-compiler").to("com.google.dagger", "hilt-android-compiler")
+            alias("hiltAndroid").to("com.google.dagger", "hilt-android").versionRef("hilt")
+            alias("hiltCompiler").to("com.google.dagger", "hilt-android-compiler")
                 .versionRef("hilt")
-            bundle("hilt", listOf("hilt-android", "hilt-compiler"))
+            bundle("hilt", listOf("hiltAndroid", "hiltCompiler"))
 
             // Retrofit will use okhttp 4 (it has binary capability with okhttp 3)
             // See: https://square.github.io/okhttp/upgrading_to_okhttp_4/
@@ -164,6 +170,19 @@ dependencyResolutionManagement {
             bundle("room", listOf("room-ktx", "room-runtime"))
 
             alias("room.compiler").to("androidx.room", "room-compiler").versionRef("room")
+
+            // MultiDex
+            version("multidex-lib", "2.0.1")
+            alias("multidex").to("androidx.multidex", "multidex").versionRef("multidex-lib")
+
+            // Glide
+            version("glide", "4.12.0")
+            alias("glide-core").to("com.github.bumptech.glide", "glide").versionRef("glide")
+            alias("glide-okhttp3").to("com.github.bumptech.glide", "okhttp3-integration")
+                .versionRef("glide")
+            alias("glide-compiler").to("com.github.bumptech.glide", "compiler")
+                .versionRef("glide")
+            bundle("glide", listOf("glide-core", "glide-okhttp3", "glide-compiler"))
 
             // Test dependencies
             alias("test-coroutines").to("org.jetbrains.kotlinx", "kotlinx-coroutines-test")

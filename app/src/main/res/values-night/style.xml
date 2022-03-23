@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.AndroidBase" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/main_blue</item>
+        <item name="colorPrimaryDark">@color/main_blue</item>
+        <item name="colorAccent">@color/main_blue</item>
+        <!-- Customize your theme here. -->
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowAnimationStyle">@style/ActivityAnimation</item>
+        <item name="android:radioButtonStyle">@style/RadioButton</item>
+
+    </style>
+
+    <style name="fullscreen_dialog" parent="android:Theme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
+    <style name="Theme.AppCompat.Light.NoActionBar.FullScreen" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="ExposedDropdownMenu" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="endIconMode">dropdown_menu</item>
+    </style>
+
+    <style name="MyProgressBarCircular" parent="@style/Widget.AppCompat.ProgressBar">
+        <item name="android:indeterminateTint">@color/white</item>
+    </style>
+
+    <style name="roundedImageViewRounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+        <item name="cornerRadius">50dp</item>
+    </style>
+
+    <style name="Widget.BottomNavigationView" parent="Widget.Design.BottomNavigationView">
+        <item name="android:fontFamily">@font/market_type_next_tt_regular</item>
+        <item name="android:textSize">@dimen/text_size_n2</item>
+        <item name="android:textColor">@color/main_text</item>
+    </style>
+
+    <style name="ActivityAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+    </style>
+
+    <style name="DialogTheme" parent="android:Theme.Dialog">
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="background">@color/transparent</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowActionBar">false</item>
+
+    </style>
+
+    <style name="RadioButton" parent="@android:style/Widget.CompoundButton.RadioButton">
+        <item name="android:button">@drawable/selector_radio_button</item>
+    </style>
+    <!-- Full Screen Dialog Theme -->
+    <style name="DialogThemeFullScreen" parent="AppTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
+    <!-- Typography -->
+    <style name="TextStyle6">
+        <item name="android:fontFamily">@font/market_type_next_tt_regular</item>
+        <item name="android:textSize">@dimen/text_size_6</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:lineSpacingMultiplier">1.31</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextStyle6b">
+        <item name="android:fontFamily">@font/market_type_next_ttbold</item>
+        <item name="android:textSize">@dimen/text_size_6</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:lineSpacingMultiplier">1.31</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStyle6l">
+        <item name="android:fontFamily">@font/market_type_next_tt_light</item>
+        <item name="android:textSize">@dimen/text_size_6</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:lineSpacingMultiplier">1.31</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStyle6t">
+        <item name="android:fontFamily">@font/market_type_next_tt_thin</item>
+        <item name="android:textSize">@dimen/text_size_6</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:lineSpacingMultiplier">1.31</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStyle5">
+        <item name="android:fontFamily">@font/market_type_next_tt_regular</item>
+        <item name="android:textSize">@dimen/text_size_5</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:lineSpacingMultiplier">1.31</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextStyle5b">
+        <item name="android:fontFamily">@font/market_type_next_ttbold</item>
+        <item name="android:textSize">@dimen/text_size_5</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:lineSpacingMultiplier">1.31</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStyle5l">
+        <item name="android:fontFamily">@font/market_type_next_tt_light</item>
+        <item name="android:textSize">@dimen/text_size_5</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:lineSpacingMultiplier">1.31</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStyle5t">
+        <item name="android:fontFamily">@font/market_type_next_tt_thin</item>
+        <item name="android:textSize">@dimen/text_size_5</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:lineSpacingMultiplier">1.31</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStyle4">
+        <item name="android:fontFamily">@font/market_type_next_tt_regular</item>
+        <item name="android:textSize">@dimen/text_size_4</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:lineSpacingMultiplier">1.31</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextStyle4b">
+        <item name="android:fontFamily">@font/market_type_next_ttbold</item>
+        <item name="android:textSize">@dimen/text_size_4</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:lineSpacingMultiplier">1.31</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStyle4l">
+        <item name="android:fontFamily">@font/market_type_next_tt_light</item>
+        <item name="android:textSize">@dimen/text_size_4</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:lineSpacingMultiplier">1.31</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStyle4t">
+        <item name="android:fontFamily">@font/market_type_next_tt_thin</item>
+        <item name="android:textSize">@dimen/text_size_4</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:lineSpacingMultiplier">1.31</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStyle3">
+        <item name="android:fontFamily">@font/market_type_next_tt_regular</item>
+        <item name="android:textSize">@dimen/text_size_3</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:lineSpacingMultiplier">1.12</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStyle3b">
+        <item name="android:fontFamily">@font/market_type_next_ttbold</item>
+        <item name="android:textSize">@dimen/text_size_3</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:lineSpacingMultiplier">1.12</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStyle3b_blue">
+        <item name="android:fontFamily">@font/market_type_next_ttbold</item>
+        <item name="android:textSize">@dimen/text_size_3</item>
+        <item name="android:textColor">@color/main_blue</item>
+        <item name="android:lineSpacingMultiplier">1.12</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStyle3l">
+        <item name="android:fontFamily">@font/market_type_next_tt_light</item>
+        <item name="android:textSize">@dimen/text_size_3</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:lineSpacingMultiplier">1.12</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStyle3t">
+        <item name="android:fontFamily">@font/market_type_next_tt_thin</item>
+        <item name="android:textSize">@dimen/text_size_3</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:lineSpacingMultiplier">1.12</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStyle2">
+        <item name="android:fontFamily">@font/market_type_next_tt_regular</item>
+        <item name="android:textSize">@dimen/text_size_2</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:lineSpacingMultiplier">1.17</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStyle2b">
+        <item name="android:fontFamily">@font/market_type_next_ttbold</item>
+        <item name="android:textSize">@dimen/text_size_2</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:lineSpacingMultiplier">1.17</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStyle2l">
+        <item name="android:fontFamily">@font/market_type_next_tt_light</item>
+        <item name="android:textSize">@dimen/text_size_2</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:lineSpacingMultiplier">1.17</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStyle2t">
+        <item name="android:fontFamily">@font/market_type_next_tt_thin</item>
+        <item name="android:textSize">@dimen/text_size_2</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:lineSpacingMultiplier">1.17</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStyle1">
+        <item name="android:fontFamily">@font/market_type_next_tt_regular</item>
+        <item name="android:textSize">@dimen/text_size_1</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStyle1b">
+        <item name="android:fontFamily">@font/market_type_next_ttbold</item>
+        <item name="android:textSize">@dimen/text_size_1</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+
+    <style name="TextStyle1l">
+        <item name="android:fontFamily">@font/market_type_next_tt_light</item>
+        <item name="android:textSize">@dimen/text_size_1</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStyle1t">
+        <item name="android:fontFamily">@font/market_type_next_tt_thin</item>
+        <item name="android:textSize">@dimen/text_size_1</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStyle0">
+        <item name="android:fontFamily">@font/market_type_next_tt_regular</item>
+        <item name="android:textSize">@dimen/text_size_0</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStyle0b">
+        <item name="android:fontFamily">@font/market_type_next_ttbold</item>
+        <item name="android:textSize">@dimen/text_size_0</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStyle0l">
+        <item name="android:fontFamily">@font/market_type_next_tt_light</item>
+        <item name="android:textSize">@dimen/text_size_0</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStyle0t">
+        <item name="android:fontFamily">@font/market_type_next_tt_thin</item>
+        <item name="android:textSize">@dimen/text_size_0</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStylen1">
+        <item name="android:fontFamily">@font/market_type_next_tt_regular</item>
+        <item name="android:textSize">@dimen/text_size_n1</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStylen1t">
+        <item name="android:fontFamily">@font/market_type_next_tt_thin</item>
+        <item name="android:textSize">@dimen/text_size_n1</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStylen1b">
+        <item name="android:fontFamily">@font/market_type_next_ttbold</item>
+        <item name="android:textSize">@dimen/text_size_n1</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStylen1l">
+        <item name="android:fontFamily">@font/market_type_next_tt_light</item>
+        <item name="android:textSize">@dimen/text_size_n1</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStylen2">
+        <item name="android:fontFamily">@font/market_type_next_tt_regular</item>
+        <item name="android:textSize">@dimen/text_size_n2</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStylen2t">
+        <item name="android:fontFamily">@font/market_type_next_tt_thin</item>
+        <item name="android:textSize">@dimen/text_size_n2</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStylen2b">
+        <item name="android:fontFamily">@font/market_type_next_ttbold</item>
+        <item name="android:textSize">@dimen/text_size_n2</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStylen2l">
+        <item name="android:fontFamily">@font/market_type_next_tt_light</item>
+        <item name="android:textSize">@dimen/text_size_n2</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStylen3">
+        <item name="android:fontFamily">@font/market_type_next_tt_regular</item>
+        <item name="android:textSize">@dimen/text_size_n3</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStylen3t">
+        <item name="android:fontFamily">@font/market_type_next_tt_thin</item>
+        <item name="android:textSize">@dimen/text_size_n3</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStylen3b">
+        <item name="android:fontFamily">@font/market_type_next_ttbold</item>
+        <item name="android:textSize">@dimen/text_size_n3</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+    <style name="TextStylen3l">
+        <item name="android:fontFamily">@font/market_type_next_tt_light</item>
+        <item name="android:textSize">@dimen/text_size_n3</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:includeFontPadding">false</item>
+
+    </style>
+
+</resources>

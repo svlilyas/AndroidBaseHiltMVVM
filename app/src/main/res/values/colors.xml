@@ -7,4 +7,37 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="navigation_disabled">#C8C8C8</color>
+    <color name="bg_expandable_selected">#100653b6</color>
+
+    <color name="soft_bg">#B6B6B6</color>
+    <color name="light_gray">#e8e8e8</color>
+    <color name="transparent">#00000000</color>
+
+    <!--Main Colors-->
+    <color name="main_text">#262626</color>
+    <color name="main_text_opacity_25">#40262626</color>
+    <color name="main_text_opacity_80">#CC262626</color>
+    <color name="secondary_text">#4d4d4d</color>
+    <color name="frame_and_line">#E6E6E6</color>
+    <color name="error">#e22718</color>
+    <color name="red">#e22718</color>
+    <color name="warning">#f1c40f</color>
+    <color name="yellow">#f1c40f</color>
+    <color name="green">#2bb673</color>
+    <color name="main_blue">#1c69d4</color>
+    <color name="blue">#1c69d4</color>
+    <color name="selected_card_color">#2e6acd</color>
+    <color name="map_line">#B70D65E1</color>
+    <color name="button_blue">#1b69d4</color>
+    <color name="select_date">#f8f8f8</color>
+    <color name="ocean_blue">#120653B6</color>
+    <color name="text_icon">#8e8e8e</color>
+    <color name="greyish_brown">#4d4d4d</color>
+    <color name="card_background">#f2f4f7</color>
+    <color name="cancel">#666666</color>
+    <color name="black_opacity_25">#40000000</color>
+    <color name="dimmed_text">#666666</color>
+    <color name="repair_border_color">#707070</color>
+    <color name="button_transparent_color">#120653b6</color>
 </resources>
