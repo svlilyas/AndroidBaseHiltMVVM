@@ -153,11 +153,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
-    buildFeatures {
-        dataBinding = true
-        viewBinding = true
-    }
-
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
@@ -179,6 +174,15 @@ android {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
 
+    // Network
+    api(Dependencies.Network.gson)
+    api(Dependencies.Network.gsonAdapter)
+    api(Dependencies.Network.retrofit)
+    api(Dependencies.Network.rxJavaAdapter)
+    api(Dependencies.Network.okHttp)
+    api(Dependencies.Network.loggingInterceptor)
+    api(Dependencies.Network.scalar)
+
     // Kotlin
     implementation(Dependencies.Kotlin.kotlinStdLib)
     implementation(Dependencies.Kotlin.kotlinCoroutinesCore)
@@ -190,6 +194,9 @@ dependencies {
     implementation(Dependencies.LifeCycle.liveData)
     implementation(Dependencies.LifeCycle.viewModel)
     implementation(Dependencies.LifeCycle.viewModelState)
+
+    // ReactiveFunc
+    api(Dependencies.ReactiveFunc.rxJava)
 
     // DI
     implementation(Dependencies.DI.hilt)

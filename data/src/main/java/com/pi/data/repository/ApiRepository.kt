@@ -1,3 +1,5 @@
 package com.pi.data.repository
 
-class ApiRepository
+import javax.inject.Inject
+
+class ApiRepository @Inject constructor()

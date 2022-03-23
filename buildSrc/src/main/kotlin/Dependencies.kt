@@ -1,3 +1,4 @@
+import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.dsl.DependencyHandler
 
 object Dependencies {
@@ -240,8 +241,8 @@ object Dependencies {
     }
 
     object Project {
-        fun DependencyHandler.app() = project(mapOf("path" to ":app"))
-        fun DependencyHandler.data() = project(mapOf("path" to ":data"))
+        fun DependencyHandler.app(): Dependency = project(mapOf("path" to ":app"))
+        fun DependencyHandler.data(): Dependency = project(mapOf("path" to ":data"))
     }
 
     object Test {

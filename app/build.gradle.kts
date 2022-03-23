@@ -1,3 +1,4 @@
+import Dependencies.Project.data
 import com.android.build.api.dsl.ApplicationProductFlavor
 
 // Application Specific Plugins
@@ -135,7 +136,6 @@ android {
                 "${AndroidConfig.APP_NAME}$versionNameSuffix"
             )
 
-            buildConfigField("String", "sd", "\"llklk\"")
             // BuildConfigField
             stringField(Fields.SERVICE_URL to "")
             stringField(Fields.SERVICE_PUBLIC_KEY to "")
@@ -180,7 +180,7 @@ android {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
     // Data Module
-    // implementation(data())
+    //implementation(data())
 
     // Kotlin
     implementation(Dependencies.Kotlin.kotlinStdLib)
@@ -257,9 +257,6 @@ dependencies {
     // WarmDotsIndicator
     implementation(Dependencies.Tools.dotsIndicator)
 
-    // Dengage
-    // implementation(Dependencies.Dengage.dengage)
-
     // Gson
     implementation(Dependencies.Tools.gson)
 
@@ -271,17 +268,11 @@ dependencies {
     // KeyboardListener
     implementation(Dependencies.Tools.keyboardListener)
 
-    // Huawei
-
-    // Google
-
     // Adjust
     implementation(Dependencies.Adjust.adjustAndroid)
     implementation(Dependencies.Adjust.identifier)
     implementation(Dependencies.Adjust.installreferrer)
     implementation(Dependencies.Adjust.webbridge)
-
-    // Firebase
 
     // Dialog
     implementation(Dependencies.MaterialDialog.core)

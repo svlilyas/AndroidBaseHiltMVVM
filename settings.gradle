@@ -14,5 +14,5 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "AndroidBaseHiltMVVM"
-include ':app'
-include ':data'
+include(":app",
+        ":data")
