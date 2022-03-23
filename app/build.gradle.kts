@@ -1,10 +1,10 @@
 plugins {
     // Application Specific Plugins
     id(Plugins.ANDROID_APPLICATION)
-    id(Plugins.KOTLIN_ANDROID)
+    kotlin(Plugins.ANDROID)
+    kotlin(Plugins.KAPT)
+    id(Plugins.KOTLIN_EXTENSIONS)
     id(Plugins.SAFE_ARGS)
-    id(Plugins.KOTLIN_KAPT)
-    kotlin(Plugins.androidExtensions)
     id(Plugins.DAGGER_HILT)
 }
 
