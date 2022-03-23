@@ -71,7 +71,7 @@ object Dependencies {
     }
 
     object LifeCycle {
-        const val runTimeLiveCycle =
+        const val runTimeLifeCycle =
             "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.LifeCycle.runTimeLifeCycle}"
         const val lifeCycleCompiler =
             "androidx.lifecycle:lifecycle-compiler:${Versions.LifeCycle.viewModelState}"

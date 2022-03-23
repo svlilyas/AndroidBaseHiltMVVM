@@ -7,9 +7,11 @@ plugins {
     kotlin(Plugins.androidExtensions)
     id(Plugins.DAGGER_HILT)
 }
+
 androidExtensions {
     isExperimental = true
 }
+
 android {
     compileSdkVersion(AndroidConfig.COMPILE_SDK_VERSION)
     buildToolsVersion = AndroidConfig.BUILD_TOOLS_VERSION
@@ -44,7 +46,6 @@ android {
     }
 
     buildTypes {
-
         getByName(Flavors.BuildTypes.DEBUG) {
             isTestCoverageEnabled = true
             isMinifyEnabled = false
@@ -64,7 +65,6 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-
             // signingConfig = signingConfigs.getByName(Flavors.BuildTypes.RELEASE)
         }
     }
@@ -203,7 +203,7 @@ dependencies {
     implementation(Dependencies.Navigation.navigationUi)
 
     // LifeCycle
-    implementation(Dependencies.LifeCycle.runTimeLiveCycle)
+    implementation(Dependencies.LifeCycle.runTimeLifeCycle)
     implementation(Dependencies.LifeCycle.lifeCycleCompiler)
     implementation(Dependencies.LifeCycle.liveData)
     implementation(Dependencies.LifeCycle.viewModel)
