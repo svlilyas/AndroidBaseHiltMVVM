@@ -1,4 +1,3 @@
-import Dependencies.Project.data
 import com.android.build.api.dsl.ApplicationProductFlavor
 
 // Application Specific Plugins
@@ -180,113 +179,36 @@ android {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
     // Data Module
-    //implementation(data())
+    // implementation(data())
 
-    // Kotlin
-    implementation(Dependencies.Kotlin.kotlinStdLib)
-    implementation(Dependencies.Kotlin.kotlinCoroutinesCore)
-    implementation(Dependencies.Kotlin.kotlinCoroutinesAndroid)
+    // Gradle 7 introduces version catalogs - a new way for sharing dependency versions across projects.
+    // Dependencies are defined in gradle.settings.kts file.
+    // Code completion problem is fixed in InteliJ IDEA 2021.2 EAP 1 https://youtrack.jetbrains.com/issue/IDEA-266509
+    api(libs.bundles.kotlin)
+    api(libs.bundles.stetho)
+    api(libs.bundles.retrofit)
+    api(libs.bundles.okhttp)
+    api(libs.bundles.kodein)
+    api(libs.play.core)
+    api(libs.bundles.ktx)
+    api(libs.bundles.navigation)
+    api(libs.bundles.lifecycle)
+    api(libs.bundles.room)
+    api(libs.timber)
+    api(libs.coil)
+    api(libs.constraintLayout)
+    api(libs.coordinatorLayout)
+    api(libs.appcompat)
+    api(libs.recyclerview)
+    api(libs.material)
+    api(libs.coroutines)
+    api(libs.lottie)
 
-    // Android
-    implementation(Dependencies.Android.androidCore)
-    implementation(Dependencies.Android.appCompat)
-    implementation(Dependencies.Android.legacySupport)
-    implementation(Dependencies.Android.multidex)
-    implementation(Dependencies.Android.materialDesign)
-    implementation(Dependencies.Android.fragment)
-    implementation(Dependencies.Android.constraintLayout)
-    implementation(Dependencies.Android.recyclerView)
-    implementation(Dependencies.Android.recyclerViewSelection)
-    implementation(Dependencies.Android.cardView)
-    implementation(Dependencies.Android.palette)
-    implementation(Dependencies.Android.workManger)
+    kapt(libs.room.compiler)
 
-    // Navigation
-    implementation(Dependencies.Navigation.runTimeNavigation)
-    implementation(Dependencies.Navigation.navigationFragment)
-    implementation(Dependencies.Navigation.navigationUi)
+    testImplementation(libs.bundles.test)
 
-    // LifeCycle
-    implementation(Dependencies.LifeCycle.runTimeLifeCycle)
-    implementation(Dependencies.LifeCycle.lifeCycleCompiler)
-    implementation(Dependencies.LifeCycle.liveData)
-    implementation(Dependencies.LifeCycle.viewModel)
-    implementation(Dependencies.LifeCycle.viewModelState)
-
-    // DI
-    implementation(Dependencies.DI.hilt)
-    kapt(Dependencies.DI.hiltCompiler)
-
-    // ReactiveFunc
-    implementation(Dependencies.ReactiveFunc.rxJava)
-    implementation(Dependencies.ReactiveFunc.rxKotlin)
-    implementation(Dependencies.ReactiveFunc.rxAndroid)
-    implementation(Dependencies.Network.scalar)
-    implementation(Dependencies.Network.gson)
-
-    // AppCenter
-    implementation(Dependencies.AppCenter.crashes)
-    implementation(Dependencies.AppCenter.analytics)
-    // Shimmer Layout
-    implementation(Dependencies.Tools.shimmerLayout)
-
-    // Timber
-    implementation(Dependencies.Tools.timber)
-
-    // ZoomageView
-    implementation(Dependencies.Tools.zoomageView)
-
-    // balloon
-    implementation(Dependencies.Tools.balloon)
-
-    // EventBus
-    implementation(Dependencies.Tools.eventbus)
-
-    // Lottie (Animation)
-    implementation(Dependencies.Tools.lottie)
-
-    // RoundedImageView
-    implementation(Dependencies.Tools.roundedImageView)
-
-    // LinkBuilder
-    implementation(Dependencies.Tools.linkBuilder)
-
-    // ViewPager2
-    implementation(Dependencies.Tools.viewPager2)
-
-    // WarmDotsIndicator
-    implementation(Dependencies.Tools.dotsIndicator)
-
-    // Gson
-    implementation(Dependencies.Tools.gson)
-
-    // Glide
-    implementation(Dependencies.Tools.glide)
-    implementation(Dependencies.Tools.glideOkHttpIntegration)
-    kapt(Dependencies.Tools.glideCompiler)
-
-    // KeyboardListener
-    implementation(Dependencies.Tools.keyboardListener)
-
-    // Adjust
-    implementation(Dependencies.Adjust.adjustAndroid)
-    implementation(Dependencies.Adjust.identifier)
-    implementation(Dependencies.Adjust.installreferrer)
-    implementation(Dependencies.Adjust.webbridge)
-
-    // Dialog
-    implementation(Dependencies.MaterialDialog.core)
-    implementation(Dependencies.MaterialDialog.datetime)
-    implementation(Dependencies.MaterialDialog.input)
-    implementation(Dependencies.MaterialDialog.lifecycle)
-
-    // Testing
-    testImplementation(Dependencies.Test.junit)
-    testImplementation(Dependencies.Test.truthExt)
-    testImplementation(Dependencies.Test.mockK)
-    testImplementation(Dependencies.Test.coreTesting)
-    androidTestImplementation(Dependencies.Test.androidJunit)
-    androidTestImplementation(Dependencies.Test.espressoCore)
+    testRuntimeOnly(libs.junit.jupiter.engine)
 }
 
 fun ApplicationProductFlavor.stringField(entry: Pair<String, String>) {

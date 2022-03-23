@@ -134,7 +134,6 @@ android {
                 "${AndroidConfig.APP_NAME}$versionNameSuffix"
             )
 
-            buildConfigField("String", "sd", "\"llklk\"")
             // BuildConfigField
             stringField(Fields.SERVICE_URL to "")
             stringField(Fields.SERVICE_PUBLIC_KEY to "")
@@ -174,44 +173,13 @@ android {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
 
-    // Network
-    api(Dependencies.Network.gson)
-    api(Dependencies.Network.gsonAdapter)
-    api(Dependencies.Network.retrofit)
-    api(Dependencies.Network.rxJavaAdapter)
-    api(Dependencies.Network.okHttp)
-    api(Dependencies.Network.loggingInterceptor)
-    api(Dependencies.Network.scalar)
+    implementation(project(ModuleDependency.APP))
+    kapt(libs.room.compiler)
+    api(libs.bundles.hilt)
 
-    // Kotlin
-    implementation(Dependencies.Kotlin.kotlinStdLib)
-    implementation(Dependencies.Kotlin.kotlinCoroutinesCore)
-    implementation(Dependencies.Kotlin.kotlinCoroutinesAndroid)
+    testImplementation(libs.bundles.test)
 
-    // LifeCycle
-    implementation(Dependencies.LifeCycle.runTimeLifeCycle)
-    implementation(Dependencies.LifeCycle.lifeCycleCompiler)
-    implementation(Dependencies.LifeCycle.liveData)
-    implementation(Dependencies.LifeCycle.viewModel)
-    implementation(Dependencies.LifeCycle.viewModelState)
-
-    // ReactiveFunc
-    api(Dependencies.ReactiveFunc.rxJava)
-
-    // DI
-    implementation(Dependencies.DI.hilt)
-    kapt(Dependencies.DI.hiltCompiler)
-
-    // Timber
-    implementation(Dependencies.Tools.timber)
-
-    // Testing
-    testImplementation(Dependencies.Test.junit)
-    testImplementation(Dependencies.Test.truthExt)
-    testImplementation(Dependencies.Test.mockK)
-    testImplementation(Dependencies.Test.coreTesting)
-    androidTestImplementation(Dependencies.Test.androidJunit)
-    androidTestImplementation(Dependencies.Test.espressoCore)
+    testRuntimeOnly(libs.junit.jupiter.engine)
 }
 
 fun ApplicationProductFlavor.stringField(entry: Pair<String, String>) {
