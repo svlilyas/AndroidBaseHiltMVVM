@@ -1,11 +1,11 @@
+import com.android.build.api.dsl.ApplicationProductFlavor
+
+// Application Specific Plugins
 plugins {
-    // Application Specific Plugins
     id(Plugins.ANDROID_APPLICATION)
     kotlin(Plugins.ANDROID)
     kotlin(Plugins.KAPT)
     id(Plugins.KOTLIN_EXTENSIONS)
-    id(Plugins.SAFE_ARGS)
-    id(Plugins.DAGGER_HILT)
 }
 
 androidExtensions {
@@ -13,15 +13,15 @@ androidExtensions {
 }
 
 android {
-    compileSdkVersion(AndroidConfig.COMPILE_SDK_VERSION)
+    compileSdk = AndroidConfig.COMPILE_SDK_VERSION
     buildToolsVersion = AndroidConfig.BUILD_TOOLS_VERSION
 
     ndkVersion = AndroidConfig.NDK_VERSION
 
     defaultConfig {
         applicationId = AndroidConfig.APP_ID
-        minSdkVersion(AndroidConfig.MIN_SDK_VERSION)
-        targetSdkVersion(AndroidConfig.TARGET_SDK_VERSION)
+        minSdk = AndroidConfig.MIN_SDK_VERSION
+        targetSdk = AndroidConfig.TARGET_SDK_VERSION
 
         versionCode = AndroidConfig.VERSION_CODE
         versionName = AndroidConfig.VERSION_NAME
@@ -31,10 +31,10 @@ android {
         setProperty("archivesBaseName", "${AndroidConfig.APP_NAME}-$versionName($versionCode)")
     }
 
-    lintOptions {
-        this.isAbortOnError = true
-        this.isCheckReleaseBuilds = true
-        this.disable("NullSafeMutableLiveData")
+    lint {
+        this.abortOnError = true
+        this.checkReleaseBuilds = true
+        this.disable.add("NullSafeMutableLiveData")
     }
     signingConfigs {
         /*register(Flavors.BuildTypes.RELEASE) {
@@ -69,7 +69,7 @@ android {
         }
     }
 
-    flavorDimensions(Flavors.FlavorDimensions.ENVIRONMENT)
+    flavorDimensionList.add(Flavors.FlavorDimensions.ENVIRONMENT)
     productFlavors {
         // dev
         create(Flavors.ProductFlavors.DEV) {
@@ -134,6 +134,8 @@ android {
                 "app_label_name",
                 "${AndroidConfig.APP_NAME}$versionNameSuffix"
             )
+
+            buildConfigField("String", "sd", "\"llklk\"")
             // BuildConfigField
             stringField(Fields.SERVICE_URL to "")
             stringField(Fields.SERVICE_PUBLIC_KEY to "")
@@ -162,15 +164,17 @@ android {
     }
 
     packagingOptions {
-        exclude("META-INF/DEPENDENCIES")
-        exclude("META-INF/LICENSE")
-        exclude("META-INF/LICENSE.txt")
-        exclude("META-INF/license.txt")
-        exclude("META-INF/NOTICE")
-        exclude("META-INF/NOTICE.txt")
-        exclude("META-INF/notice.txt")
-        exclude("META-INF/ASL2.0")
-        exclude("META-INF/*.kotlin_module")
+        resources.excludes.apply {
+            add("META-INF/DEPENDENCIES")
+            add("META-INF/LICENSE")
+            add("META-INF/LICENSE.txt")
+            add("META-INF/license.txt")
+            add("META-INF/NOTICE")
+            add("META-INF/NOTICE.txt")
+            add("META-INF/notice.txt")
+            add("META-INF/ASL2.0")
+            add("META-INF/*.kotlin_module")
+        }
     }
 }
 dependencies {
@@ -211,12 +215,7 @@ dependencies {
 
     // DI
     implementation(Dependencies.DI.hilt)
-    implementation(Dependencies.DI.hiltWork)
-    implementation(Dependencies.DI.hiltNavigation)
-    // implementation(Dependencies.DI.hiltViewModel)
     kapt(Dependencies.DI.hiltCompiler)
-    kapt(Dependencies.DI.hiltWorkManagerCompiler)
-    annotationProcessor(Dependencies.DI.hiltWorkManagerCompiler)
 
     // ReactiveFunc
     implementation(Dependencies.ReactiveFunc.rxJava)
@@ -299,12 +298,6 @@ dependencies {
     androidTestImplementation(Dependencies.Test.espressoCore)
 }
 
-fun com.android.build.gradle.internal.dsl.ProductFlavor.stringField(entry: Pair<String, String>) {
+fun ApplicationProductFlavor.stringField(entry: Pair<String, String>) {
     buildConfigField("String", entry.first, "\"${entry.second}\"")
-}
-
-fun com.android.build.gradle.internal.dsl.ProductFlavor.manifestHolders(entry: Pair<String, String>) {
-    val map = HashMap<String, String>()
-    map[entry.first] = entry.second
-    manifestPlaceholders(map)
 }

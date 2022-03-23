@@ -86,16 +86,8 @@ object Dependencies {
     object DI {
         const val hilt =
             "com.google.dagger:hilt-android:${Versions.DI.hilt}"
-        const val hiltWork =
-            "androidx.hilt:hilt-work:${Versions.DI.hiltWork}"
         const val hiltCompiler =
             "com.google.dagger:hilt-android-compiler:${Versions.DI.hilt}"
-        const val hiltNavigation =
-            "androidx.hilt:hilt-navigation-fragment:${Versions.DI.hiltNavigation}"
-        const val hiltViewModel =
-            "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.DI.hiltViewModel}"
-        const val hiltWorkManagerCompiler =
-            "androidx.hilt:hilt-compiler:${Versions.DI.hiltCompiler}"
     }
 
     object ReactiveFunc {
@@ -250,8 +242,6 @@ object Dependencies {
     object Project {
         fun DependencyHandler.app() = project(mapOf("path" to ":app"))
         fun DependencyHandler.data() = project(mapOf("path" to ":data"))
-        fun DependencyHandler.routeAndroid() = project(mapOf("path" to ":route-android"))
-        fun DependencyHandler.routeCore() = project(mapOf("path" to ":route-core"))
     }
 
     object Test {

@@ -1,9 +1,8 @@
 object Versions {
 
     object Gradle {
-        const val gradleVersionPluginVersion = "0.27.0"
-        const val gradleVersion = "4.2.1"
-        const val hiltVersion = "2.35"
+        const val gradlePluginVersion = "7.1.2"
+        const val gradleVersion = "7.2"
         const val safeArgs = "2.3.5"
     }
 
@@ -45,11 +44,7 @@ object Versions {
     }
 
     object DI {
-        const val hilt = "2.35"
-        const val hiltWork = "1.0.0"
-        const val hiltNavigation = "1.0.0"
-        const val hiltViewModel = "1.0.0-alpha03"
-        const val hiltCompiler = "1.0.0"
+        const val hilt = "2.38.1"
     }
 
     object ReactiveFunc {
@@ -105,7 +100,6 @@ object Versions {
         const val balloon = "1.3.6"
         const val rangeSeekBar = "v3.0.0"
         const val gson = "2.8.7"
-
 
         const val qrCodeGenerator = "1.0.3"
         const val camView = "2.0.1@aar"

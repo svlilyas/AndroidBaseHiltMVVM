@@ -1,8 +1,8 @@
+// Gradle plugins are added via plugin management, not the classpath
 pluginManagement {
     repositories {
         gradlePluginPortal()
         google()
-        mavenCentral()
     }
 }
 dependencyResolutionManagement {
@@ -12,5 +12,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+
 rootProject.name = "AndroidBaseHiltMVVM"
 include ':app'
