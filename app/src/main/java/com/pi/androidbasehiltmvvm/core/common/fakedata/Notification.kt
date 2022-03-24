@@ -8,7 +8,7 @@ data class Notification(
     var id: Int = 0,
     var title: String = "",
     var subTitle: String = "",
-    var navigationUrl: String = "/route/NewAutomobileStatus",
+    var navigationUrl: String = "/route/NewProduct",
     var desc: String = "Description Text",
     var read: Boolean = false
 ) : Parcelable

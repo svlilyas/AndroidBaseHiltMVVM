@@ -144,7 +144,7 @@ class APISSLPinningApplier : SSLPinningApplier {
 
     fun getSSLPublicKeys(): List<String> {
         if (BuildConfig.DEBUG) return emptyList()
-        if (TextUtils.isEmpty(BuildConfig.SERVICE_PUBLIC_KEY)) return emptyList()
-        return BuildConfig.SERVICE_PUBLIC_KEY.split(",")
+        if (TextUtils.isEmpty(BuildConfig.SERVICE_API_KEY)) return emptyList()
+        return BuildConfig.SERVICE_API_KEY.split(",")
     }
 }

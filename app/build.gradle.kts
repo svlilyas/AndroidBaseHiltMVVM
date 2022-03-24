@@ -82,7 +82,7 @@ android {
         create(Flavors.ProductFlavors.DEV) {
             dimension = Flavors.FlavorDimensions.ENVIRONMENT
             applicationIdSuffix = ".${Flavors.ProductFlavors.DEV}"
-            versionNameSuffix = "_${Flavors.ProductFlavors.DEV}_${AndroidConfig.VERSION_NAME}"
+            versionNameSuffix = "_${Flavors.ProductFlavors.DEV}"
 
             resValue(
                 "string",
@@ -91,7 +91,7 @@ android {
             )
             // BuildConfigField
             stringField(Fields.SERVICE_URL to "")
-            stringField(Fields.SERVICE_PUBLIC_KEY to "")
+            stringField(Fields.SERVICE_API_KEY to "")
             stringField(Fields.SERVICE_CERTIFICATE_PATH to "")
         }
 
@@ -99,7 +99,7 @@ android {
         create(Flavors.ProductFlavors.UAT) {
             dimension = Flavors.FlavorDimensions.ENVIRONMENT
             applicationIdSuffix = ".${Flavors.ProductFlavors.UAT}"
-            versionNameSuffix = "_${Flavors.ProductFlavors.UAT}_${AndroidConfig.VERSION_NAME}"
+            versionNameSuffix = "_${Flavors.ProductFlavors.UAT}"
 
             resValue(
                 "string",
@@ -108,7 +108,7 @@ android {
             )
             // BuildConfigField
             stringField(Fields.SERVICE_URL to "")
-            stringField(Fields.SERVICE_PUBLIC_KEY to "")
+            stringField(Fields.SERVICE_API_KEY to "")
             stringField(Fields.SERVICE_CERTIFICATE_PATH to "")
         }
 
@@ -116,7 +116,7 @@ android {
         create(Flavors.ProductFlavors.PILOT) {
             dimension = Flavors.FlavorDimensions.ENVIRONMENT
             applicationIdSuffix = ".${Flavors.ProductFlavors.PILOT}"
-            versionNameSuffix = "_${Flavors.ProductFlavors.PILOT}_${AndroidConfig.VERSION_NAME}"
+            versionNameSuffix = "_${Flavors.ProductFlavors.PILOT}"
 
             resValue(
                 "string",
@@ -126,7 +126,7 @@ android {
 
             // BuildConfigField
             stringField(Fields.SERVICE_URL to "")
-            stringField(Fields.SERVICE_PUBLIC_KEY to "")
+            stringField(Fields.SERVICE_API_KEY to "")
             stringField(Fields.SERVICE_CERTIFICATE_PATH to "")
         }
 
@@ -134,7 +134,7 @@ android {
         create(Flavors.ProductFlavors.STORE) {
             dimension = Flavors.FlavorDimensions.ENVIRONMENT
             applicationIdSuffix = ""
-            versionNameSuffix = "_${Flavors.ProductFlavors.STORE}_${AndroidConfig.VERSION_NAME}"
+            versionNameSuffix = "_${Flavors.ProductFlavors.STORE}"
 
             resValue(
                 "string",
@@ -144,7 +144,7 @@ android {
 
             // BuildConfigField
             stringField(Fields.SERVICE_URL to "")
-            stringField(Fields.SERVICE_PUBLIC_KEY to "")
+            stringField(Fields.SERVICE_API_KEY to "")
             stringField(Fields.SERVICE_CERTIFICATE_PATH to "")
         }
     }
@@ -196,7 +196,6 @@ dependencies {
     api(libs.bundles.stetho)
     api(libs.bundles.retrofit)
     api(libs.bundles.okhttp)
-    api(libs.bundles.kodein)
     api(libs.play.core)
     api(libs.bundles.ktx)
     api(libs.bundles.navigation)
@@ -215,7 +214,6 @@ dependencies {
     kapt(libs.hiltCompiler)
     api(libs.multidex)
     api(libs.bundles.glide)
-    api(libs.bundles.network)
 
     kapt(libs.room.compiler)
 

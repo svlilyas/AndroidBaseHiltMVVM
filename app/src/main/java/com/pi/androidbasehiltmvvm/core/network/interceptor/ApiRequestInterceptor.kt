@@ -1,6 +1,8 @@
-package com.pi.androidbasehiltmvvm.core.network
+package com.pi.androidbasehiltmvvm.core.network.interceptor
 
 import com.pi.androidbasehiltmvvm.core.common.PreferenceManager
+import com.pi.androidbasehiltmvvm.core.network.NetworkController
+import com.pi.androidbasehiltmvvm.core.network.NetworkUnavailableException
 import com.pi.androidbasehiltmvvm.core.platform.ProjectApplication
 import okhttp3.Interceptor
 import okhttp3.Request
@@ -32,7 +34,6 @@ class ApiRequestInterceptor @Inject constructor(
         val newRequest = request.newBuilder()
 
         /** If you want to add Token or Header value   */
-        
         return newRequest.build()
     }
 
