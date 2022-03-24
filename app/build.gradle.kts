@@ -183,10 +183,11 @@ android {
         }
     }
 }
+
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
     // Data Module
-    //implementation(data())
+    implementation(data())
 
     // Gradle 7 introduces version catalogs - a new way for sharing dependency versions across projects.
     // Dependencies are defined in gradle.settings.kts file.
