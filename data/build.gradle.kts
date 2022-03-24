@@ -19,7 +19,7 @@ android {
     ndkVersion = AndroidConfig.NDK_VERSION
 
     defaultConfig {
-        applicationId = AndroidConfig.APP_ID
+        // applicationId = AndroidConfig.APP_ID
         minSdk = AndroidConfig.MIN_SDK_VERSION
         targetSdk = AndroidConfig.TARGET_SDK_VERSION
 
@@ -27,8 +27,6 @@ android {
         versionName = AndroidConfig.VERSION_NAME
         multiDexEnabled = true
         testInstrumentationRunner = AndroidConfig.TEST_INSTRUMENTATION_RUNNER
-
-        setProperty("archivesBaseName", "${AndroidConfig.APP_NAME}-$versionName($versionCode)")
     }
 
     lint {

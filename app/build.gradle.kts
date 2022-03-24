@@ -1,3 +1,4 @@
+import Dependencies.Project.data
 import com.android.build.api.dsl.ApplicationProductFlavor
 
 // Application Specific Plugins
@@ -185,7 +186,7 @@ android {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
     // Data Module
-    // implementation(data())
+    //implementation(data())
 
     // Gradle 7 introduces version catalogs - a new way for sharing dependency versions across projects.
     // Dependencies are defined in gradle.settings.kts file.
@@ -213,12 +214,11 @@ dependencies {
     kapt(libs.hiltCompiler)
     api(libs.multidex)
     api(libs.bundles.glide)
+    api(libs.bundles.network)
 
     kapt(libs.room.compiler)
 
     testImplementation(libs.bundles.test)
-
-    // implementation(project(ModuleDependency.FEATURE_DATA))
 
     testRuntimeOnly(libs.junit.jupiter.engine)
 }

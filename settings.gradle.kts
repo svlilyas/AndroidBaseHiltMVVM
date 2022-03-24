@@ -1,3 +1,6 @@
+include(":app")
+include(":data")
+
 rootProject.buildFileName = "build.gradle.kts"
 
 enableFeaturePreview("VERSION_CATALOGS")
@@ -6,11 +9,6 @@ enableFeaturePreview("VERSION_CATALOGS")
 // This preview feature should be enabled by default in Gradle 7
 // More: https://docs.gradle.org/current/userguide/dependency_locking.html#single_lock_file_per_project
 enableFeaturePreview("ONE_LOCKFILE_PER_PROJECT")
-
-include(
-    ":app",
-    ":data"
-)
 
 // Gradle plugins are added via plugin management, not the classpath
 pluginManagement {
@@ -25,8 +23,9 @@ pluginManagement {
         // https://github.com/igorwojda/android-showcase#dependency-management
         val agpVersion: String by settings
         id("com.android.application") version agpVersion
-        id("com.android.library") version agpVersion
-        id("com.android.dynamic-feature") version agpVersion
+
+        val libraryVersion: String by settings
+        id("com.android.library") version libraryVersion
 
         val kotlinVersion: String by settings
         id("org.jetbrains.kotlin.jvm") version kotlinVersion
@@ -52,8 +51,7 @@ pluginManagement {
         eachPlugin {
             when (requested.id.id) {
                 "com.android.application",
-                "com.android.library",
-                "com.android.dynamic-feature" -> {
+                "com.android.library" -> {
                     val agpCoordinates: String by settings
                     useModule(agpCoordinates)
                 }
@@ -111,6 +109,33 @@ dependencyResolutionManagement {
                 .versionRef("okhttp")
             // bundle is basically an alias for several dependencies
             bundle("okhttp", listOf("okhttp-okhttp", "okhttp-interceptor"))
+
+            version("gson", "2.8.7")
+            alias("gson-core").to("com.google.code.gson", "gson").versionRef("gson")
+
+            version("gsonConvertor", "2.9.0")
+            alias("gson-convertor").to("com.squareup.retrofit2", "converter-gson")
+                .versionRef("gsonConvertor")
+            // bundle is basically an alias for several dependencies
+            bundle("gson", listOf("gson-core", "gson-convertor"))
+
+            version("rxJava3", "2.9.0")
+            alias("rxJava3Adapter").to("com.squareup.retrofit2", "adapter-rxjava3")
+                .versionRef("rxJava3")
+
+            version("scalar", "2.6.2")
+            alias("scalarConverter").to("com.squareup.retrofit2", "converter-scalars")
+                .versionRef("scalar")
+
+            bundle(
+                "network",
+                listOf(
+                    "gson-core",
+                    "gson-convertor",
+                    "rxJava3Adapter",
+                    "scalarConverter",
+                )
+            )
 
             version(
                 "stetho",
