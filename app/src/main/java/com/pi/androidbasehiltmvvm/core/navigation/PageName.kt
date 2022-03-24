@@ -1,4 +1,4 @@
-package com.pi.androidbasehiltmvvm.core.router
+package com.pi.androidbasehiltmvvm.core.navigation
 
 object PageName {
     const val marketAppMain = "https://marketapp.com.tr"

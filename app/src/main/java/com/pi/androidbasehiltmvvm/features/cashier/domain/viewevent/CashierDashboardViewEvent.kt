@@ -1,5 +1,7 @@
 package com.pi.androidbasehiltmvvm.features.cashier.domain.viewevent
 
-sealed class CashierDashboardViewEvent {
-    object ReadQrCode : CashierDashboardViewEvent()
+import com.pi.androidbasehiltmvvm.core.platform.viewmodel.BaseViewEvent
+
+sealed class CashierDashboardViewEvent : BaseViewEvent {
+    data class NavigateToHome(val name: String) : CashierDashboardViewEvent()
 }

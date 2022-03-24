@@ -3,8 +3,8 @@ package com.pi.androidbasehiltmvvm.features.homepage.presentation
 import android.os.Bundle
 import com.pi.androidbasehiltmvvm.R
 import com.pi.androidbasehiltmvvm.core.extensions.observeEvent
+import com.pi.androidbasehiltmvvm.core.navigation.PageName
 import com.pi.androidbasehiltmvvm.core.platform.BaseFragment
-import com.pi.androidbasehiltmvvm.core.router.PageName
 import com.pi.androidbasehiltmvvm.databinding.FragmentHomepageBinding
 import com.pi.androidbasehiltmvvm.features.homepage.domain.viewevent.HomePageViewEvent
 import com.pi.androidbasehiltmvvm.features.homepage.domain.viewmodel.HomePageViewModel
@@ -17,10 +17,15 @@ class HomePageFragment : BaseFragment<FragmentHomepageBinding, HomePageViewModel
 ) {
     override fun getScreenKey(): String = PageName.PreLogin.HOMEPAGE_MAIN
 
-    override fun onDataBinding() {
+    override fun setUpViews() {
+        super.setUpViews()
         binding.apply {
             viewmodel = viewModel
         }
+    }
+
+    override fun observeData() {
+        super.observeData()
         observeEvent(viewModel.event, ::onViewEvent)
     }
 

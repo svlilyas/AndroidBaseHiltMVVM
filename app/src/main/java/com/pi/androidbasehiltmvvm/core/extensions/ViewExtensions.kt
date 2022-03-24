@@ -1,11 +1,9 @@
 package com.pi.androidbasehiltmvvm.core.extensions
 
 import android.content.Context
+import android.os.SystemClock
 import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.FrameLayout
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 
 fun View.hideKeyboard() {
     (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
@@ -17,26 +15,37 @@ fun View.showKeyboard() {
         .showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
 }
 
-internal fun View?.findSuitableParent(): ViewGroup? {
-    var view = this
-    var fallback: ViewGroup? = null
+fun View.setOnDebouncedClickListener(action: () -> Unit) {
+    val actionDebouncer = ActionDebouncer(action)
 
-    do {
-        if (view is CoordinatorLayout) {
-            return view
-        } else if (view is FrameLayout) {
-            if (view.id == android.R.id.content) {
-                return view
-            } else {
-                fallback = view
-            }
+    // This is the only place in the project where we should actually use setOnClickListener
+    setOnClickListener {
+        actionDebouncer.notifyAction()
+    }
+}
+
+fun View.removeOnDebouncedClickListener() {
+    setOnClickListener(null)
+    isClickable = false
+}
+
+private class ActionDebouncer(private val action: () -> Unit) {
+
+    companion object {
+        const val DEBOUNCE_INTERVAL_MILLISECONDS = 600L
+    }
+
+    private var lastActionTime = 0L
+
+    fun notifyAction() {
+        val now = SystemClock.elapsedRealtime()
+
+        val millisecondsPassed = now - lastActionTime
+        val actionAllowed = millisecondsPassed > DEBOUNCE_INTERVAL_MILLISECONDS
+        lastActionTime = now
+
+        if (actionAllowed) {
+            action.invoke()
         }
-
-        if (view != null) {
-            val parent = view.parent
-            view = if (parent is View) parent else null
-        }
-    } while (view != null)
-
-    return fallback
+    }
 }

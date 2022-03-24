@@ -3,8 +3,8 @@ package com.pi.androidbasehiltmvvm.features.customer.presentation
 import android.os.Bundle
 import com.pi.androidbasehiltmvvm.R
 import com.pi.androidbasehiltmvvm.core.extensions.observeEvent
+import com.pi.androidbasehiltmvvm.core.navigation.PageName
 import com.pi.androidbasehiltmvvm.core.platform.BaseFragment
-import com.pi.androidbasehiltmvvm.core.router.PageName
 import com.pi.androidbasehiltmvvm.databinding.FragmentCustomerDashboardBinding
 import com.pi.androidbasehiltmvvm.features.customer.domain.viewevent.CustomerDashboardViewEvent
 import com.pi.androidbasehiltmvvm.features.customer.domain.viewmodel.CustomerDashboardViewModel
@@ -18,10 +18,15 @@ class CustomerDashboardFragment :
     ) {
     override fun getScreenKey(): String = PageName.PreLogin.CUSTOMER_DASHBOARD
 
-    override fun onDataBinding() {
+    override fun setUpViews() {
+        super.setUpViews()
         binding.apply {
             viewmodel = viewModel
         }
+    }
+
+    override fun observeData() {
+        super.observeData()
         observeEvent(viewModel.event, ::onViewEvent)
     }
 

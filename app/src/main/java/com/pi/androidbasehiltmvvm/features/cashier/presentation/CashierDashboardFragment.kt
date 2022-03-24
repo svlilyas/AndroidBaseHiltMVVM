@@ -6,12 +6,10 @@ import androidx.appcompat.app.AlertDialog
 import com.pi.androidbasehiltmvvm.R
 import com.pi.androidbasehiltmvvm.core.common.PermissionHelper
 import com.pi.androidbasehiltmvvm.core.common.permissionmanager.PermissionHandler
-import com.pi.androidbasehiltmvvm.core.extensions.observeEvent
+import com.pi.androidbasehiltmvvm.core.navigation.PageName
 import com.pi.androidbasehiltmvvm.core.platform.BaseFragment
-import com.pi.androidbasehiltmvvm.core.router.PageName
 import com.pi.androidbasehiltmvvm.databinding.CustomDialogBinding
 import com.pi.androidbasehiltmvvm.databinding.FragmentCashierDashboardBinding
-import com.pi.androidbasehiltmvvm.features.cashier.domain.viewevent.CashierDashboardViewEvent
 import com.pi.androidbasehiltmvvm.features.cashier.domain.viewmodel.CashierDashboardViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,14 +21,16 @@ class CashierDashboardFragment :
     ) {
     override fun getScreenKey(): String = PageName.PreLogin.CASHIER_DASHBOARD
 
-    override fun onDataBinding() {
+    override fun setUpViews() {
+        super.setUpViews()
         binding.apply {
             viewmodel = viewModel
         }
-        observeEvent(viewModel.event, ::onViewEvent)
+    }
 
+    override fun observeData() {
+        super.observeData()
         fetchViewData()
-
         requestPermissions()
     }
 
@@ -58,13 +58,6 @@ class CashierDashboardFragment :
             AlertDialog.Builder(requireContext()).setView(dialogBinding.root).setCancelable(true)
 
         dialog.show()
-    }
-
-    private fun onViewEvent(event: CashierDashboardViewEvent) {
-        when (event) {
-            CashierDashboardViewEvent.ReadQrCode -> {
-            }
-        }
     }
 
     companion object {

@@ -4,9 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.pi.androidbasehiltmvvm.core.common.PreferenceManager
 import com.pi.androidbasehiltmvvm.core.extensions.Event
-import com.pi.androidbasehiltmvvm.core.platform.BaseViewModel
+import com.pi.androidbasehiltmvvm.core.platform.viewmodel.BaseViewModel
 import com.pi.androidbasehiltmvvm.features.customer.domain.usecase.CustomerDashboardUseCase
 import com.pi.androidbasehiltmvvm.features.customer.domain.viewevent.CustomerDashboardViewEvent
+import com.pi.androidbasehiltmvvm.features.customer.domain.viewstate.CustomerDashboardViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -14,7 +15,7 @@ import javax.inject.Inject
 class CustomerDashboardViewModel @Inject constructor(
     private val useCase: CustomerDashboardUseCase,
     val preferenceManager: PreferenceManager
-) : BaseViewModel() {
+) : BaseViewModel<CustomerDashboardViewState, CustomerDashboardViewEvent>(CustomerDashboardViewState()) {
     private val _event = MutableLiveData<Event<CustomerDashboardViewEvent>>()
     val event: LiveData<Event<CustomerDashboardViewEvent>>
         get() = _event
@@ -26,4 +27,13 @@ class CustomerDashboardViewModel @Inject constructor(
     fun generateQrCode() {
         sendEvent(CustomerDashboardViewEvent.GenerateQrCode)
     }
+
+    override fun onReduceState(viewAction: CustomerDashboardViewEvent): CustomerDashboardViewState =
+        when (viewAction) {
+            is CustomerDashboardViewEvent.GenerateQrCode -> state.copy(
+                isLoading = false,
+                isError = false,
+                albumName = "name"
+            )
+        }
 }
