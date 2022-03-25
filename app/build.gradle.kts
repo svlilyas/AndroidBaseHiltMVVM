@@ -90,7 +90,7 @@ android {
                 "${AndroidConfig.APP_NAME}$versionNameSuffix"
             )
             // BuildConfigField
-            stringField(Fields.SERVICE_URL to "")
+            stringField(Fields.SERVICE_URL to "https://api.openweathermap.org/data/")
             stringField(Fields.SERVICE_API_KEY to "")
             stringField(Fields.SERVICE_CERTIFICATE_PATH to "")
         }
@@ -107,7 +107,7 @@ android {
                 "${AndroidConfig.APP_NAME}$versionNameSuffix"
             )
             // BuildConfigField
-            stringField(Fields.SERVICE_URL to "")
+            stringField(Fields.SERVICE_URL to "https://api.openweathermap.org/data/")
             stringField(Fields.SERVICE_API_KEY to "")
             stringField(Fields.SERVICE_CERTIFICATE_PATH to "")
         }
@@ -125,7 +125,7 @@ android {
             )
 
             // BuildConfigField
-            stringField(Fields.SERVICE_URL to "")
+            stringField(Fields.SERVICE_URL to "https://api.openweathermap.org/data/")
             stringField(Fields.SERVICE_API_KEY to "")
             stringField(Fields.SERVICE_CERTIFICATE_PATH to "")
         }
@@ -143,7 +143,7 @@ android {
             )
 
             // BuildConfigField
-            stringField(Fields.SERVICE_URL to "")
+            stringField(Fields.SERVICE_URL to "https://api.openweathermap.org/data/")
             stringField(Fields.SERVICE_API_KEY to "")
             stringField(Fields.SERVICE_CERTIFICATE_PATH to "")
         }

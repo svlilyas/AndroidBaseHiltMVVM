@@ -2,6 +2,7 @@ package com.pi.androidbasehiltmvvm.core.platform
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.activity.result.ActivityResult
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import timber.log.Timber
 
 abstract class BaseActivity<DB : ViewDataBinding, VM : ViewModel>(
     @LayoutRes private val layoutId: Int,
@@ -28,6 +30,14 @@ abstract class BaseActivity<DB : ViewDataBinding, VM : ViewModel>(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.lifecycleOwner = this
+
+        supportActionBar?.hide()
+
+        // The window will not be resized when virtual keyboard is shown (bottom navigation bar will be
+        // hidden under virtual keyboard)
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
+
+        Timber.v("onCreate ${javaClass.simpleName}")
 
         setUpViews()
     }

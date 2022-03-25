@@ -1,7 +1,7 @@
 package com.pi.androidbasehiltmvvm.features
 
 import android.os.Bundle
-import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.pi.androidbasehiltmvvm.R
 import com.pi.androidbasehiltmvvm.core.extensions.navigateSafe
@@ -16,7 +16,7 @@ class NavHostActivity : BaseActivity<ActivityNavHostBinding, MainViewModel>(
     layoutId = R.layout.activity_nav_host,
     viewModelClass = MainViewModel::class.java
 ) {
-    private val navController get() = Navigation.findNavController(this, R.id.navHostFragment)
+    private val navController get() = findNavController(R.id.navHostFragment)
 
     @Inject
     lateinit var navManager: NavManager
@@ -26,7 +26,7 @@ class NavHostActivity : BaseActivity<ActivityNavHostBinding, MainViewModel>(
         setContentView(binding.root)
 
         initBottomNavigation()
-        initNavManager()
+        // initNavManager()
     }
 
     override fun setUpViews() {
