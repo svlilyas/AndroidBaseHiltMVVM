@@ -26,7 +26,7 @@ class NavHostActivity : BaseActivity<ActivityNavHostBinding, MainViewModel>(
         setContentView(binding.root)
 
         initBottomNavigation()
-        // initNavManager()
+        initNavManager()
     }
 
     override fun setUpViews() {
