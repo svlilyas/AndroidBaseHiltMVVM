@@ -7,8 +7,11 @@
         <entry key="..\:/Quber/ANDROID/Private/AndroidBaseHiltMVVM/app/src/main/res/drawable-v24/ic_img_placeholder.xml" value="0.141" />
         <entry key="..\:/Quber/ANDROID/Private/AndroidBaseHiltMVVM/app/src/main/res/drawable-v24/ic_radio_button.xml" value="0.1" />
         <entry key="..\:/Quber/ANDROID/Private/AndroidBaseHiltMVVM/app/src/main/res/drawable-v24/selector_radio_button.xml" value="0.1" />
+        <entry key="..\:/Quber/ANDROID/Private/AndroidBaseHiltMVVM/app/src/main/res/drawable/bottom_nav_colors.xml" value="0.1" />
+        <entry key="..\:/Quber/ANDROID/Private/AndroidBaseHiltMVVM/app/src/main/res/drawable/ic_round_dashboard.xml" value="0.1" />
         <entry key="..\:/Quber/ANDROID/Private/AndroidBaseHiltMVVM/app/src/main/res/font/ss.xml" value="0.1" />
         <entry key="..\:/Quber/ANDROID/Private/AndroidBaseHiltMVVM/app/src/main/res/layout/activity_main.xml" value="0.14739583333333334" />
+        <entry key="..\:/Quber/ANDROID/Private/AndroidBaseHiltMVVM/app/src/main/res/layout/activity_nav_host.xml" value="0.14393939393939395" />
         <entry key="..\:/Quber/ANDROID/Private/AndroidBaseHiltMVVM/app/src/main/res/layout/custom_dialog.xml" value="0.14739583333333334" />
         <entry key="..\:/Quber/ANDROID/Private/AndroidBaseHiltMVVM/app/src/main/res/layout/den_carousel_collapsed.xml" value="0.14739583333333334" />
         <entry key="..\:/Quber/ANDROID/Private/AndroidBaseHiltMVVM/app/src/main/res/layout/den_carousel_landscape.xml" value="0.14739583333333334" />
@@ -19,6 +22,8 @@
         <entry key="..\:/Quber/ANDROID/Private/AndroidBaseHiltMVVM/app/src/main/res/layout/progress_view.xml" value="0.14739583333333334" />
         <entry key="..\:/Quber/ANDROID/Private/AndroidBaseHiltMVVM/app/src/main/res/layout/view_common_lottie_dialog.xml" value="0.14739583333333334" />
         <entry key="..\:/Quber/ANDROID/Private/AndroidBaseHiltMVVM/app/src/main/res/layout/view_indicator.xml" value="0.14739583333333334" />
+        <entry key="..\:/Quber/ANDROID/Private/AndroidBaseHiltMVVM/app/src/main/res/menu/bottom.xml" value="0.36666666666666664" />
+        <entry key="..\:/Quber/ANDROID/Private/AndroidBaseHiltMVVM/app/src/main/res/menu/bottom_nav_menu.xml" value="0.30158730158730157" />
       </map>
     </option>
   </component>

@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">AndroidBaseHiltMVVM</string>
+
+    <!--Bottom menu-->
+    <string name="albums">Albums</string>
+    <string name="favorites">Favorites</string>
+    <string name="profile">Profile</string>
 </resources>

@@ -22,8 +22,6 @@ abstract class BaseActivity<DB : ViewDataBinding, VM : ViewModel>(
         ViewModelProvider(this)[viewModelClass]
     }
 
-    abstract fun onDataBinding()
-
     protected val activityLauncher: BetterActivityResult<Intent, ActivityResult> =
         BetterActivityResult.registerActivityForResult(this)
 
@@ -31,8 +29,10 @@ abstract class BaseActivity<DB : ViewDataBinding, VM : ViewModel>(
         super.onCreate(savedInstanceState)
         binding.lifecycleOwner = this
 
-        onDataBinding()
+        setUpViews()
     }
+
+    open fun setUpViews() {}
 
     open fun finishApp() {
         finish()
