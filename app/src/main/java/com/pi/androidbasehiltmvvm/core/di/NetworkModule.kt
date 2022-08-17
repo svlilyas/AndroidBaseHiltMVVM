@@ -4,6 +4,8 @@ import android.content.Context
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.pi.androidbasehiltmvvm.BuildConfig
 import com.pi.androidbasehiltmvvm.core.common.PreferenceManager
+import com.pi.androidbasehiltmvvm.core.db.AppDao
+import com.pi.androidbasehiltmvvm.core.db.AppDatabase
 import com.pi.androidbasehiltmvvm.core.di.qualifers.DefaultOkHttpClientBuilder
 import com.pi.androidbasehiltmvvm.core.di.qualifers.ProjectOkHttpClient
 import com.pi.androidbasehiltmvvm.core.di.qualifers.ProjectRetrofit
@@ -27,6 +29,19 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
+
+    @Provides
+    @Singleton
+    fun provideAppDatabase(
+        @ApplicationContext context: Context
+    ): AppDatabase = AppDatabase.getAppDbInstance(context)
+
+    @Provides
+    @Singleton
+    fun provideAppDao(
+        appDatabase: AppDatabase
+    ): AppDao = appDatabase.getAppDao()
+
     @Provides
     @Singleton
     fun provideProjectService(

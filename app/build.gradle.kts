@@ -7,6 +7,7 @@ plugins {
     kotlin(Plugins.ANDROID)
     kotlin(Plugins.KAPT)
     id(Plugins.KOTLIN_EXTENSIONS)
+    id(Plugins.SAFE_ARGS)
     id(Plugins.DAGGER_HILT)
 }
 

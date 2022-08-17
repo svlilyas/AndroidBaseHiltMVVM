@@ -24,6 +24,12 @@
         <entry key="..\:/Quber/ANDROID/Private/AndroidBaseHiltMVVM/app/src/main/res/layout/view_indicator.xml" value="0.14739583333333334" />
         <entry key="..\:/Quber/ANDROID/Private/AndroidBaseHiltMVVM/app/src/main/res/menu/bottom.xml" value="0.36666666666666664" />
         <entry key="..\:/Quber/ANDROID/Private/AndroidBaseHiltMVVM/app/src/main/res/menu/bottom_nav_menu.xml" value="0.30158730158730157" />
+        <entry key="..\:/SOFTWARE/ANDROID/AndroidBaseHiltMVVM/app/src/main/res/layout/activity_main.xml" value="0.14722222222222223" />
+        <entry key="..\:/SOFTWARE/ANDROID/AndroidBaseHiltMVVM/app/src/main/res/layout/activity_nav_host.xml" value="0.14722222222222223" />
+        <entry key="..\:/SOFTWARE/ANDROID/AndroidBaseHiltMVVM/app/src/main/res/layout/fragment_cashier_dashboard.xml" value="0.14722222222222223" />
+        <entry key="..\:/SOFTWARE/ANDROID/AndroidBaseHiltMVVM/app/src/main/res/layout/fragment_homepage.xml" value="0.25" />
+        <entry key="..\:/SOFTWARE/ANDROID/AndroidBaseHiltMVVM/app/src/main/res/layout/fragment_reading.xml" value="0.33" />
+        <entry key="..\:/SOFTWARE/ANDROID/AndroidBaseHiltMVVM/app/src/main/res/layout/fragment_result.xml" value="0.33" />
       </map>
     </option>
   </component>

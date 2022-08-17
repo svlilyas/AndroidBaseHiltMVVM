@@ -2,18 +2,31 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/app_nav_graph"
-    app:startDestination="@id/homePageFragment">
+    app:startDestination="@id/readingFragment">
 
     <fragment
-        android:id="@+id/homePageFragment"
-        android:name="com.pi.androidbasehiltmvvm.features.homepage.presentation.HomePageFragment"
-        android:label="HomePageFragment" />
+        android:id="@+id/readingFragment"
+        android:name="com.pi.androidbasehiltmvvm.features.reading.presentation.ReadingFragment"
+        android:label="ReadingFragment" >
+        <action
+            android:id="@+id/action_readingFragment_to_resultFragment"
+            app:destination="@id/resultFragment" />
+    </fragment>
     <fragment
-        android:id="@+id/cashierDashboardFragment"
-        android:name="com.pi.androidbasehiltmvvm.features.cashier.presentation.CashierDashboardFragment"
-        android:label="CashierDashboardFragment" />
-    <fragment
-        android:id="@+id/customerDashboardFragment"
-        android:name="com.pi.androidbasehiltmvvm.features.customer.presentation.CustomerDashboardFragment"
-        android:label="CustomerDashboardFragment" />
+        android:id="@+id/resultFragment"
+        android:name="com.pi.androidbasehiltmvvm.features.result.presentation.ResultFragment"
+        android:label="ResultFragment" >
+        <action
+            android:id="@+id/action_resultFragment_to_readingFragment"
+            app:destination="@id/readingFragment" />
+        <argument
+            android:name="serviceNumber"
+            app:argType="string" />
+        <argument
+            android:name="currentReading"
+            app:argType="float" />
+        <argument
+            android:name="remainingReading"
+            app:argType="float" />
+    </fragment>
 </navigation>

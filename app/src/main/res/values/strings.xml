@@ -5,4 +5,8 @@
     <string name="albums">Albums</string>
     <string name="favorites">Favorites</string>
     <string name="profile">Profile</string>
+    <string name="calculate">Calculate</string>
+    <string name="result_cost">RESULT COST</string>
+    <string name="save">SAVE</string>
+    <string name="cost_1s">$%1s</string>
 </resources>

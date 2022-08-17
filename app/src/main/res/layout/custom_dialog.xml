@@ -6,7 +6,7 @@
 
         <variable
             name="viewmodel"
-            type="com.pi.androidbasehiltmvvm.features.cashier.domain.viewmodel.CashierDashboardViewModel" />
+            type="com.pi.androidbasehiltmvvm.features.reading.domain.viewmodel.ReadingViewModel" />
 
         <import type="com.pi.androidbasehiltmvvm.core.common.data.PaymentStatus" />
     </data>
