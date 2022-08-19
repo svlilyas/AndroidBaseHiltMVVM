@@ -6,7 +6,7 @@ import com.pi.androidbasehiltmvvm.core.models.CustomerReading
 
 @Dao
 interface AppDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(customerReading: CustomerReading)
 
     @Update
