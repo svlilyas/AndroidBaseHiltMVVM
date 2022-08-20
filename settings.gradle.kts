@@ -21,11 +21,11 @@ pluginManagement {
     plugins {
         // See Dependency management section in README.md
         // https://github.com/igorwojda/android-showcase#dependency-management
-        val agpVersion: String by settings
-        id("com.android.application") version agpVersion
+       /* val agpVersion: String by settings
+        id("com.android.application") version agpVersion*/
 
-        val libraryVersion: String by settings
-        id("com.android.library") version libraryVersion
+       /* val libraryVersion: String by settings
+        id("com.android.library") version libraryVersion*/
 
         val kotlinVersion: String by settings
         id("org.jetbrains.kotlin.jvm") version kotlinVersion
@@ -50,11 +50,6 @@ pluginManagement {
     resolutionStrategy {
         eachPlugin {
             when (requested.id.id) {
-                "com.android.application",
-                "com.android.library" -> {
-                    val agpCoordinates: String by settings
-                    useModule(agpCoordinates)
-                }
                 "androidx.navigation.safeargs.kotlin" -> {
                     val navigationCoordinates: String by settings
                     useModule(navigationCoordinates)

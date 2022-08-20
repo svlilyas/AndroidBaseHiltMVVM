@@ -1,8 +1,6 @@
 object Versions {
 
     object Gradle {
-        const val gradlePluginVersion = "7.1.2"
-        const val gradleVersion = "7.2"
         const val safeArgs = "2.3.5"
     }
 

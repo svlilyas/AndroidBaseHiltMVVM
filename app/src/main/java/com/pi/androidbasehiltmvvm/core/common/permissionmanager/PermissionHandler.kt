@@ -39,7 +39,6 @@ object PermissionHandler {
     }
 
     fun permissionsResult(
-        activity: Activity,
         requestedPermissions: Array<String>,
         requestCode: Int,
         grantResults: IntArray,
