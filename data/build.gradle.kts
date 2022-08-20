@@ -4,12 +4,7 @@ plugins {
     id(Plugins.ANDROID_LIBRARY)
     kotlin(Plugins.ANDROID)
     kotlin(Plugins.KAPT)
-    kotlin(Plugins.ANDROID_EXTENSIONS)
     id(Plugins.DAGGER_HILT)
-}
-
-androidExtensions {
-    isExperimental = true
 }
 
 android {

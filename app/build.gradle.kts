@@ -6,13 +6,8 @@ plugins {
     id(Plugins.ANDROID_APPLICATION)
     kotlin(Plugins.ANDROID)
     kotlin(Plugins.KAPT)
-    id(Plugins.KOTLIN_EXTENSIONS)
     id(Plugins.SAFE_ARGS)
     id(Plugins.DAGGER_HILT)
-}
-
-androidExtensions {
-    isExperimental = true
 }
 
 android {
@@ -68,7 +63,6 @@ android {
             // Enables resource shrinking, which is performed by the
             // Android Gradle plugin.
             isShrinkResources = true
-            defaultPublishConfig = name
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
