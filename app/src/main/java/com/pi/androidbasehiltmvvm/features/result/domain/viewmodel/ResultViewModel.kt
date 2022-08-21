@@ -2,7 +2,6 @@ package com.pi.androidbasehiltmvvm.features.result.domain.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.pi.androidbasehiltmvvm.core.db.AppDao
 import com.pi.androidbasehiltmvvm.core.extensions.Event
 import com.pi.androidbasehiltmvvm.core.models.CustomerReading
 import com.pi.androidbasehiltmvvm.core.platform.viewmodel.BaseViewModel
@@ -15,8 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ResultViewModel @Inject constructor(
-    private val useCase: ResultUseCase,
-    private val appDB: AppDao
+    private val useCase: ResultUseCase
 ) : BaseViewModel<ResultViewState, ResultViewEvent>(ResultViewState()) {
     private val _event = MutableLiveData<Event<ResultViewEvent>>()
     val event: LiveData<Event<ResultViewEvent>>
@@ -39,14 +37,6 @@ class ResultViewModel @Inject constructor(
     }
 
     fun navigateToReadingPage() {
-        appDB.insert(
-            CustomerReading(
-                _customerId.value.toString(),
-                _cost.value,
-                _reading.value,
-                System.currentTimeMillis()
-            )
-        )
         sendEvent(ResultViewEvent.NavigateReadingPage)
     }
 

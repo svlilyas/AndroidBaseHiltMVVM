@@ -28,18 +28,9 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
-    <style name="ExposedDropdownMenu" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
-        <item name="endIconMode">dropdown_menu</item>
-    </style>
 
     <style name="MyProgressBarCircular" parent="@style/Widget.AppCompat.ProgressBar">
         <item name="android:indeterminateTint">@color/white</item>
-    </style>
-
-    <style name="roundedImageViewRounded">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">50%</item>
-        <item name="cornerRadius">50dp</item>
     </style>
 
     <style name="Widget.BottomNavigationView" parent="Widget.Design.BottomNavigationView">

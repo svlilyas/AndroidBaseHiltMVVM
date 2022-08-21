@@ -38,13 +38,13 @@ android {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
 
-    kapt(libs.room.compiler)
-    api(libs.hiltAndroid)
-    kapt(libs.hiltCompiler)
+    kapt(libs.bundles.room)
+    api(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 
-    testImplementation(libs.bundles.test)
+/*    testImplementation(libs.bundles.test)
 
-    testRuntimeOnly(libs.junit.jupiter.engine)
+    testRuntimeOnly(libs.junit.jupiter.engine)*/
 }
 
 fun ApplicationProductFlavor.stringField(entry: Pair<String, String>) {

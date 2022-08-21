@@ -33,61 +33,7 @@ class ReadingFragment :
     }
 
     private fun onViewEvent(event: ReadingViewEvent) {
-        binding.apply {
-            when (event) {
-                ReadingViewEvent.NavigateToResultPage -> {
-                    try {
-                        val serviceNumber = serviceNumTextInputEditText.text.toString()
-                        val currentReading =
-                            currentMeterTextInputEditText.text.toString().toFloat()
 
-                        if (serviceNumber.isEmpty()) {
-                            serviceNumTextInputLayout.error = "Please fill here"
-                        }
-                        if (currentReading.compareTo(0.0F) < 0) {
-                            serviceNumTextInputLayout.error =
-                                "Please Fill with number bigger than 0"
-                        }
-
-                        if (serviceNumber.isNotEmpty() && currentReading > 0) {
-
-                            viewModel.getIfHasRecord(serviceNumber).observe(
-                                viewLifecycleOwner,
-                            ) {
-                                if (it != null) {
-                                    if (currentReading.compareTo(it.reading ?: 0f) == 1) {
-                                        findNavController().navigate(
-                                            ReadingFragmentDirections.actionReadingFragmentToResultFragment(
-                                                serviceNumber = serviceNumber,
-                                                currentReading = currentReading,
-                                                remainingReading = currentReading.minus(
-                                                    it.reading ?: 0f
-                                                )
-                                            )
-                                        )
-                                    } else {
-                                        currentMeterTextInputLayout.error =
-                                            "Please type bigger reading than last"
-                                    }
-                                } else {
-                                    findNavController().navigate(
-                                        ReadingFragmentDirections.actionReadingFragmentToResultFragment(
-                                            serviceNumber = serviceNumber,
-                                            currentReading = currentReading,
-                                            remainingReading = currentReading
-                                        )
-                                    )
-                                }
-                            }
-
-
-                        }
-                    } catch (e: Exception) {
-                        Log.d("Exception", "Problem occured ${e.message}")
-                    }
-                }
-            }
-        }
     }
 
     override fun onResume() {
