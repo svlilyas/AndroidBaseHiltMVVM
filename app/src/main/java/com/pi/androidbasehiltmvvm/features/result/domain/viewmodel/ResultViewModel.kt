@@ -3,7 +3,6 @@ package com.pi.androidbasehiltmvvm.features.result.domain.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.pi.androidbasehiltmvvm.core.extensions.Event
-import com.pi.androidbasehiltmvvm.core.models.CustomerReading
 import com.pi.androidbasehiltmvvm.core.platform.viewmodel.BaseViewModel
 import com.pi.androidbasehiltmvvm.core.utils.AppConstants
 import com.pi.androidbasehiltmvvm.features.result.domain.usecase.ResultUseCase

@@ -26,6 +26,8 @@ ktx = "1.+"
 lifecycle = "2.+"
 navigation = "2.3.5"
 coroutines = "1.+"
+sandwich = "1.2.7"
+moshi = "1.13.0"
 
 [libraries]
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
@@ -74,6 +76,10 @@ navigation-fragment = { module = "androidx.navigation:navigation-fragment-ktx", 
 navigation-dynamic = { module = "androidx.navigation:navigation-dynamic-features-fragment", version.ref = "navigation" }
 navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
 
+sandwich = { module = "com.github.skydoves:sandwich", version.ref = "sandwich" }
+
+moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }
+moshi-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }
 
 [bundles]
 room = ["room-ktx", "room-paging", "room-runtime"]
@@ -86,6 +92,7 @@ stetho = ["stetho-core", "stetho-okhttp3"]
 ktx = ["core-ktx", "fragment-ktx"]
 lifecycle = ["viewmodel-ktx", "livedata-ktx", "lifecycle-common"]
 navigation = ["navigation-fragment", "navigation-dynamic", "navigation-ui-ktx"]
+moshi = ["moshi-kotlin", "moshi-codegen"]
 
 
 [plugins]

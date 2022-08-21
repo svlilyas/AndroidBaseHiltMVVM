@@ -1,4 +1,4 @@
-import com.android.build.api.dsl.ApplicationProductFlavor
+import com.android.build.api.dsl.LibraryBuildType
 
 plugins {
     id(Plugins.ANDROID_LIBRARY)
@@ -14,6 +14,8 @@ android {
     defaultConfig {
         minSdk = AndroidConfig.MIN_SDK_VERSION
         targetSdk = AndroidConfig.TARGET_SDK_VERSION
+
+        version = AndroidConfig.VERSION_NAME
 
         testInstrumentationRunner = AndroidConfig.TEST_INSTRUMENTATION_RUNNER
     }
@@ -31,6 +33,26 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+
+            // BuildConfigField
+            stringField(Fields.SERVICE_URL to "https://api.openweathermap.org/data/")
+            stringField(Fields.SERVICE_API_KEY to "")
+            stringField(Fields.SERVICE_CERTIFICATE_PATH to "")
+        }
+    }
+
+    buildTypes {
+        getByName(Flavors.BuildTypes.DEBUG) {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+
+            // BuildConfigField
+            stringField(Fields.SERVICE_URL to "https://api.openweathermap.org/data/")
+            stringField(Fields.SERVICE_API_KEY to "")
+            stringField(Fields.SERVICE_CERTIFICATE_PATH to "")
         }
     }
 }
@@ -38,8 +60,13 @@ android {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
 
-    kapt(libs.bundles.room)
-    api(libs.hilt.android)
+    implementation(libs.bundles.room)
+    implementation(libs.hilt.android)
+    implementation(libs.bundles.okhttp)
+    implementation(libs.sandwich)
+    implementation(libs.bundles.moshi)
+    implementation(libs.timber)
+    implementation(libs.bundles.retrofit)
     kapt(libs.hilt.compiler)
 
 /*    testImplementation(libs.bundles.test)
@@ -47,6 +74,6 @@ dependencies {
     testRuntimeOnly(libs.junit.jupiter.engine)*/
 }
 
-fun ApplicationProductFlavor.stringField(entry: Pair<String, String>) {
+fun LibraryBuildType.stringField(entry: Pair<String, String>) {
     buildConfigField("String", entry.first, "\"${entry.second}\"")
 }

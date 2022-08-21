@@ -1,4 +1,4 @@
-package com.igorwojda.showcase.base.presentation.extension
+package com.pi.androidbasehiltmvvm.core.extensions
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

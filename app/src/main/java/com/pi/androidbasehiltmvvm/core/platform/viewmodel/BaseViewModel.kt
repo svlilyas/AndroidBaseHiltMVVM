@@ -2,7 +2,7 @@ package com.pi.androidbasehiltmvvm.core.platform.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.igorwojda.showcase.base.presentation.extension.asLiveData
+import com.pi.androidbasehiltmvvm.core.extensions.asLiveData
 import com.pi.androidbasehiltmvvm.BuildConfig
 import kotlin.properties.Delegates
 
