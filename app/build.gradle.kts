@@ -1,4 +1,4 @@
-import Dependencies.Project.data
+import ModuleDependency.Project.data
 import com.android.build.api.dsl.ApplicationProductFlavor
 
 // Application Specific Plugins

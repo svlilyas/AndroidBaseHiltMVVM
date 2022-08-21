@@ -1,3 +1,5 @@
+import org.gradle.api.artifacts.Dependency
+import org.gradle.api.artifacts.dsl.DependencyHandler
 import kotlin.reflect.full.memberProperties
 
 // "Module" means "subproject" in terminology of Gradle API.
@@ -27,5 +29,10 @@ object ModuleDependency {
         return getAllModules()
             .filter { it.startsWith(featurePrefix) }
             .toSet()
+    }
+
+    object Project {
+        fun DependencyHandler.app(): Dependency = project(mapOf("path" to ":app"))
+        fun DependencyHandler.data(): Dependency = project(mapOf("path" to ":data"))
     }
 }
