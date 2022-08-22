@@ -81,7 +81,7 @@ abstract class BaseFragment<DB : ViewDataBinding, VM : ViewModel>(
         context.startActivity(
             Intent.createChooser(
                 intent,
-                "Tarayıcı Seç"
+                "Select a browser"
             )
         )
     }
@@ -96,12 +96,6 @@ abstract class BaseFragment<DB : ViewDataBinding, VM : ViewModel>(
                 )
             }
         }
-    }
-
-    internal fun showSoftInput() {
-        val inputManager =
-            requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0)
     }
 
     internal fun showProgressView() {
