@@ -1,8 +1,6 @@
 package com.pi.androidbasehiltmvvm.features.reading.presentation
 
 import android.os.Bundle
-import android.util.Log
-import androidx.navigation.fragment.findNavController
 import com.pi.androidbasehiltmvvm.R
 import com.pi.androidbasehiltmvvm.core.extensions.observeEvent
 import com.pi.androidbasehiltmvvm.core.navigation.PageName
