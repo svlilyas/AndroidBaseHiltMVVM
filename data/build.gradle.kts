@@ -68,10 +68,9 @@ dependencies {
     implementation(libs.timber)
     implementation(libs.bundles.retrofit)
     kapt(libs.hilt.compiler)
+    kapt(libs.room.compiler)
 
-/*    testImplementation(libs.bundles.test)
-
-    testRuntimeOnly(libs.junit.jupiter.engine)*/
+    testImplementation(libs.bundles.test)
 }
 
 fun LibraryBuildType.stringField(entry: Pair<String, String>) {

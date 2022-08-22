@@ -198,23 +198,15 @@ dependencies {
     implementation(libs.bundles.lifecycle)
     implementation(libs.bundles.room)
     implementation(libs.timber)
-    //api(libs.coil)
     implementation(libs.constraint.layout)
     implementation(libs.coordinator.layout)
     implementation(libs.appcompat)
     implementation(libs.recyclerview)
-    //api(libs.material)
-    //api(libs.coroutines)
-    //api(libs.lottie)
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
-    //kapt(libs.room.compiler)
     implementation(libs.multidex)
-    //**api(libs.bundles.glide)
 
-    /*testImplementation(libs.bundles.test)
-
-    testRuntimeOnly(libs.junit.jupiter.engine)*/
+    testImplementation(libs.bundles.test)
 }
 
 fun ApplicationProductFlavor.stringField(entry: Pair<String, String>) {

@@ -1,5 +1,5 @@
 [versions]
-gradleplugin = "7.1.3"
+gradleplugin = "7.2.2"
 kotlin = "1.7.0"
 room = "2.+"
 compose = "1.1.1"
@@ -28,6 +28,11 @@ navigation = "2.3.5"
 coroutines = "1.+"
 sandwich = "1.2.7"
 moshi = "1.13.0"
+test-runner = "1.+"
+espresso = "3.+"
+mockk = "1.+"
+arch = "2.+"
+junit-jupiter-api = "5.+"
 
 [libraries]
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
@@ -81,6 +86,14 @@ sandwich = { module = "com.github.skydoves:sandwich", version.ref = "sandwich" }
 moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }
 moshi-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }
 
+test-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+test-runner = { module = "androidx.test:runner", version.ref = "test-runner" }
+espresso = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+arch = { module = "androidx.arch.core:core-testing", version.ref = "arch" }
+junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit-jupiter-api" }
+
+
 [bundles]
 room = ["room-ktx", "room-paging", "room-runtime"]
 kotlin = ["kotlin-reflect", "kotlin-coroutines"]
@@ -93,6 +106,7 @@ ktx = ["core-ktx", "fragment-ktx"]
 lifecycle = ["viewmodel-ktx", "livedata-ktx", "lifecycle-common"]
 navigation = ["navigation-fragment", "navigation-dynamic", "navigation-ui-ktx"]
 moshi = ["moshi-kotlin", "moshi-codegen"]
+test = ["test-coroutines", "test-runner", "espresso", "mockk", "arch", "junit-jupiter-api"]
 
 
 [plugins]

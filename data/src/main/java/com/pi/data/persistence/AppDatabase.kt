@@ -4,7 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.pi.data.remote.response.SampleResponse
 
-@Database(entities = [SampleResponse::class], version = 1, exportSchema = true)
+@Database(entities = [SampleResponse::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun appDao(): AppDao

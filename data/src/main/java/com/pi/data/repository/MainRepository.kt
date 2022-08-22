@@ -19,7 +19,7 @@ class MainRepository @Inject constructor(
 ) : Repository {
 
     @WorkerThread
-    fun fetchPokemonInfo(
+    fun fetchSampleInfo(
         name: String,
         onComplete: () -> Unit,
         onError: (String?) -> Unit
@@ -27,7 +27,7 @@ class MainRepository @Inject constructor(
         val sampleInfo = appDao.getSampleInfo(name)
         if (sampleInfo == null) {
             /**
-             * fetches a [PokemonInfo] from the network and getting [ApiResponse] asynchronously.
+             * fetches a [SampleResponse] from the network and getting [ApiResponse] asynchronously.
              * @see [suspendOnSuccess](https://github.com/skydoves/sandwich#apiresponse-extensions-for-coroutines)
              */
             val response = mainClient.fetchSampleInfo(name = name)
@@ -38,7 +38,7 @@ class MainRepository @Inject constructor(
                 // handles the case when the API request gets an error response.
                 // e.g., internal server error.
                 .onError {
-                    /** maps the [ApiResponse.Failure.Error] to the [PokemonErrorResponse] using the mapper. */
+                    /** maps the [ApiResponse.Failure.Error] to the [SampleErrorResponse] using the mapper. */
                     map(ErrorResponseMapper) { onError("[Code: $code]: $message") }
                 }
                 // handles the case when the API request gets an exception response.

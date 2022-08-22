@@ -30,7 +30,7 @@ object PersistenceModule {
         application: Application
     ): AppDatabase {
         return Room
-            .databaseBuilder(application, AppDatabase::class.java, "Sample.db")
+            .databaseBuilder(application, AppDatabase::class.java, "App.db")
             .fallbackToDestructiveMigration()
             .build()
     }
