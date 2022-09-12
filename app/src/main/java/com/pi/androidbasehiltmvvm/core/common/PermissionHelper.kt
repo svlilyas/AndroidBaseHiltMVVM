@@ -6,13 +6,16 @@ import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat
 import timber.log.Timber
 
+/**
+ * @property PermissionHelper is for handling App's permissions
+ */
 object PermissionHelper {
-    val cameraPermission =
+    private val cameraPermission =
         arrayOf(
             Manifest.permission.CAMERA
         )
 
-    val wifiPermission =
+    private val wifiPermission =
         arrayOf(
             Manifest.permission.ACCESS_WIFI_STATE,
             Manifest.permission.CHANGE_WIFI_STATE
@@ -24,6 +27,11 @@ object PermissionHelper {
     fun checkCameraPermissions(context: Context) =
         checkPermissions(context, cameraPermission)
 
+    /**
+     * Checks Permissions
+     * @param permissions is the array of permissions
+     * @return `true` if all permissions granted
+     */
     private fun checkPermissions(
         context: Context,
         permissions: Array<String>

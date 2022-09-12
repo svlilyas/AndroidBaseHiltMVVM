@@ -1,13 +1,29 @@
 package com.pi.androidbasehiltmvvm.core.navigation
 
+/**
+ * A class for managing app's pages or
+ * to use DeepLink feature and navigate to exact page easily
+ */
 object PageName {
-    const val marketAppMain = "https://marketapp.com.tr"
-    const val MAIN = "$marketAppMain/main"
+    /**
+     * Note app's main domain
+     */
+    private const val myAppMain: String = "https://myApp.com.tr"
 
+    /**
+     * Base pages
+     */
     object PreLogin {
-        const val HOMEPAGE_MAIN = "$marketAppMain/homePage"
+        private const val preLogin: String = "$myAppMain/preLogin"
 
-        const val CUSTOMER_DASHBOARD = "$HOMEPAGE_MAIN/customer_dashboard"
-        const val CASHIER_DASHBOARD = "$HOMEPAGE_MAIN/cashier_dashboard"
+        /**
+         * Page for listing all notes
+         */
+        const val NOTE_LIST_PAGE: String = "$preLogin/noteList"
+
+        /**
+         * Page for note create and edit
+         */
+        const val NOTE_CREATE_EDIT_PAGE: String = "$preLogin/noteCreateEdit"
     }
 }

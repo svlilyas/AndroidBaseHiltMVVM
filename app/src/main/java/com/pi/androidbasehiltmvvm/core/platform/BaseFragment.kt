@@ -3,6 +3,7 @@ package com.pi.androidbasehiltmvvm.core.platform
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.Base64
@@ -14,7 +15,9 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.result.ActivityResult
+import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
@@ -33,7 +36,7 @@ abstract class BaseFragment<DB : ViewDataBinding, VM : ViewModel>(
     lateinit var binding: DB
     lateinit var viewModelProvider: ViewModelProvider
 
-    val viewModel by lazy {
+    val viewModel: VM by lazy {
         if (useSharedViewModel) {
             ViewModelProvider(requireActivity())[viewModelClass]
         } else {
@@ -57,11 +60,14 @@ abstract class BaseFragment<DB : ViewDataBinding, VM : ViewModel>(
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = viewLifecycleOwner
         setUpViews()
+        getViewData()
         observeData()
         getScreenKey()
     }
 
     open fun setUpViews() {}
+
+    open fun getViewData() {}
 
     open fun observeData() {}
 
@@ -86,7 +92,7 @@ abstract class BaseFragment<DB : ViewDataBinding, VM : ViewModel>(
         )
     }
 
-    internal fun hideSoftInput() {
+    private fun hideSoftInput() {
         activity?.let {
             (it.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager).apply {
                 it.currentFocus
@@ -103,6 +109,9 @@ abstract class BaseFragment<DB : ViewDataBinding, VM : ViewModel>(
 
     internal fun hideProgressView() {
     }
+
+    fun getDrawable(@DrawableRes drawableRes: Int): Drawable? =
+        ContextCompat.getDrawable(requireContext(), drawableRes)
 
     open fun finishApp() {
         requireActivity().finish()

@@ -2,31 +2,29 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/app_nav_graph"
-    app:startDestination="@id/readingFragment">
-
+    app:startDestination="@id/noteListFragment">
     <fragment
-        android:id="@+id/readingFragment"
-        android:name="com.pi.androidbasehiltmvvm.features.reading.presentation.ReadingFragment"
-        android:label="ReadingFragment" >
+        android:id="@+id/noteListFragment"
+        android:name="com.pi.androidbasehiltmvvm.features.notelist.presentation.NoteListFragment"
+        android:label="NoteListFragment" >
         <action
-            android:id="@+id/action_readingFragment_to_resultFragment"
-            app:destination="@id/resultFragment" />
+            android:id="@+id/action_noteListFragment_to_createEditNoteFragment"
+            app:destination="@id/createEditNoteFragment" />
     </fragment>
     <fragment
-        android:id="@+id/resultFragment"
-        android:name="com.pi.androidbasehiltmvvm.features.result.presentation.ResultFragment"
-        android:label="ResultFragment" >
+        android:id="@+id/createEditNoteFragment"
+        android:name="com.pi.androidbasehiltmvvm.features.createeditnote.presentation.CreateEditNoteFragment"
+        android:label="CreateEditNoteFragment" >
+        <argument
+            android:name="note"
+            app:argType="com.pi.data.remote.response.Note"
+            app:nullable="true" />
+        <argument
+            android:name="isNoteExist"
+            app:argType="boolean"
+            android:defaultValue="false" />
         <action
-            android:id="@+id/action_resultFragment_to_readingFragment"
-            app:destination="@id/readingFragment" />
-        <argument
-            android:name="serviceNumber"
-            app:argType="string" />
-        <argument
-            android:name="currentReading"
-            app:argType="float" />
-        <argument
-            android:name="remainingReading"
-            app:argType="float" />
+            android:id="@+id/action_createEditNoteFragment_to_noteListFragment"
+            app:destination="@id/noteListFragment" />
     </fragment>
 </navigation>

@@ -2,6 +2,7 @@ import com.android.build.api.dsl.LibraryBuildType
 
 plugins {
     id(Plugins.ANDROID_LIBRARY)
+    id(Plugins.PARCELIZE)
     kotlin(Plugins.ANDROID)
     kotlin(Plugins.KAPT)
     id(Plugins.DAGGER_HILT)
@@ -70,7 +71,8 @@ dependencies {
     kapt(libs.hilt.compiler)
     kapt(libs.room.compiler)
 
-    testImplementation(libs.bundles.test)
+    testImplementation(libs.bundles.unitTest)
+    androidTestImplementation(libs.bundles.instrumentationTest)
 }
 
 fun LibraryBuildType.stringField(entry: Pair<String, String>) {

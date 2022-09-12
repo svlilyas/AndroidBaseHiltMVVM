@@ -6,6 +6,8 @@
 
     <color name="mine_shaft">#3D3D3D</color>
 
+    <color name="gray">#C8C5C2</color>
+
     <color name="iconColor">@color/white</color>
     <color name="textColor">@color/white</color>
 

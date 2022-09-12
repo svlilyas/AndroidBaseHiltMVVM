@@ -1,6 +1,6 @@
 object KeyStore {
-    const val storeFilePath = "../secret/marketApp.jks"
-    const val storePassword = "marketApp2021"
-    const val keyPassword = "marketApp2021"
-    const val keyAlias = "marketApp"
+    const val storeFilePath = "../secret/BaseApp.jks"
+    const val storePassword = "BaseApp2022"
+    const val keyPassword = "BaseApp2022"
+    const val keyAlias = "BaseApp"
 }

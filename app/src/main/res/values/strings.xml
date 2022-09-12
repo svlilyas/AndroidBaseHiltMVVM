@@ -1,12 +1,17 @@
 <resources>
     <string name="app_name">AndroidBaseHiltMVVM</string>
 
-    <!--Bottom menu-->
-    <string name="albums">Albums</string>
-    <string name="favorites">Favorites</string>
-    <string name="profile">Profile</string>
-    <string name="calculate">Calculate</string>
-    <string name="result_cost">RESULT COST</string>
     <string name="save">SAVE</string>
-    <string name="cost_1s">$%1s</string>
+    <string name="edited">edited</string>
+    <string name="note_saved">Note Saved Successfully!</string>
+    <string name="note_updated">Note Updated Successfully!</string>
+    <string name="description">Description</string>
+    <string name="title">Title</string>
+    <string name="image_url">Image Url</string>
+    <string name="optional">* Optional</string>
+    <string name="required">* Required</string>
+    <string name="empty_title_error">* Title is required</string>
+    <string name="empty_description_error">* Description is required</string>
+    <string name="note_removed">Note Removed Successfully!</string>
+    <string name="fab_content_description">Add Note</string>
 </resources>

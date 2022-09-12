@@ -32,11 +32,8 @@ class ProjectApplication : Application() {
         lateinit var appContext: Context
 
         /**
-         * Used for checking internet connectivity. Main usage is on [ProjectApiRequestInterceptor]
+         * Used for checking internet connectivity
          */
-        /* val dengageEvent by lazy {
-             DengageEvent.getInstance(appContext)
-         }*/
         val networkStatusObservable: MutableLiveData<NetworkUnavailableException> by lazy {
             MutableLiveData()
         }

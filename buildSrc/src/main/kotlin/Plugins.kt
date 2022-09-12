@@ -2,6 +2,7 @@ object Plugins {
     const val ANDROID_APPLICATION = "com.android.application"
     const val ANDROID = "android"
     const val KAPT = "kapt"
+    const val PARCELIZE = "kotlin-parcelize"
     const val SAFE_ARGS = "androidx.navigation.safeargs.kotlin"
     const val ANDROID_LIBRARY = "com.android.library"
     const val DETEKT = "io.gitlab.arturbosch.detekt"

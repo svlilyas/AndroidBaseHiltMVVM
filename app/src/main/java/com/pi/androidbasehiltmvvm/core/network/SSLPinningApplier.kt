@@ -11,9 +11,17 @@ interface SSLPinningApplier {
 
     val password: String
 
-    fun apply(clientBuilder: OkHttpClient.Builder, assetManager: AssetManager, certificatePath: String)
+    fun apply(
+        clientBuilder: OkHttpClient.Builder,
+        assetManager: AssetManager,
+        certificatePath: String
+    )
 
-    fun apply(clientBuilder: OkHttpClient.Builder, assetManager: AssetManager, certificatePaths: List<String>)
+    fun apply(
+        clientBuilder: OkHttpClient.Builder,
+        assetManager: AssetManager,
+        certificatePaths: List<String>
+    )
 
     fun apply(clientBuilder: OkHttpClient.Builder, apiURL: String, publickKey: String)
 

@@ -7,6 +7,21 @@ import java.util.*
 object DateHelper {
 
     /**
+     * Formatting date from @param time is
+     * @author svlilyas
+     * @see https://github.com/svlilyas
+     * @param timeStamp is the TimeStamp data to be translated
+     * @param dateFormat is the date format which user wants to convert
+     * @return Date as a String
+     */
+    fun formatDateFromTimeStamp(timeStamp: Long, dateFormat: String): String {
+        val simpleDateFormat = SimpleDateFormat(dateFormat, Locale.getDefault())
+        val dateString = simpleDateFormat.format(timeStamp)
+        return String.format("%s", dateString)
+    }
+
+    /**
+     * @param date is
      * Transform Date String
      * dd.MM.yyyy -> yyyy-MM-dd
      */

@@ -1,38 +1,20 @@
 import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.dsl.DependencyHandler
-import kotlin.reflect.full.memberProperties
 
-// "Module" means "subproject" in terminology of Gradle API.
-// To be specific each "Android module" is a Gradle "subproject"
-@Suppress("unused")
+/**
+ * Features Management Class
+ * Reaching all feature dependencies from this class
+ */
 object ModuleDependency {
-    // All consts are accessed via reflection
-    const val APP = ":app"
+    // Main Path
+    const val PATH = "path"
+
+    // Feature Paths
+    const val FEATURE_APP = ":app"
     const val FEATURE_DATA = ":data"
 
-    // False positive" function can be private"
-    // See: https://youtrack.jetbrains.com/issue/KT-33610
-    /*
-    Return list of all modules in the project
-     */
-    private fun getAllModules() = ModuleDependency::class.memberProperties
-        .filter { it.isConst }
-        .map { it.getter.call().toString() }
-        .toSet()
-
-    /*
-     Return list of feature modules in the project
-     */
-    fun getFeatureModules(): Set<String> {
-        val featurePrefix = ""
-
-        return getAllModules()
-            .filter { it.startsWith(featurePrefix) }
-            .toSet()
-    }
-
     object Project {
-        fun DependencyHandler.app(): Dependency = project(mapOf("path" to ":app"))
-        fun DependencyHandler.data(): Dependency = project(mapOf("path" to ":data"))
+        fun DependencyHandler.app(): Dependency = project(mapOf(PATH to FEATURE_APP))
+        fun DependencyHandler.data(): Dependency = project(mapOf(PATH to FEATURE_DATA))
     }
 }

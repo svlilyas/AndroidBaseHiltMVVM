@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.pi.androidbasehiltmvvm.features.notelist.domain.viewmodel.NoteListViewModel" />
+
+        <variable
+            name="item"
+            type="com.pi.data.remote.response.Note" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginVertical="4dp"
+        android:onClick="@{()-> viewmodel.navigateToEditNote(item)}"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/margin_4dp"
+        app:cardElevation="@dimen/margin_4dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:padding="3dp">
+
+            <com.pi.androidbasehiltmvvm.core.view.AspectRatioImageView
+                android:id="@+id/noteImageView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                app:ari_ratio="1"
+                app:errorDrawable="@{@drawable/ic_broken_image}"
+                app:imageUrl="@{item.imageUrl}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:placeholder="@{@drawable/ic_placeholder}"
+                tools:src="@drawable/ic_placeholder" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/titleTextView"
+                android:layout_width="@dimen/margin_0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@{item.title}"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/noteImageView"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Note Title" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/descriptionTextView"
+                android:layout_width="@dimen/margin_0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:ellipsize="end"
+                android:maxLines="4"
+                android:text="@{item.description}"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/noteImageView"
+                app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+                tools:text="Note Description" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/editedTagTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_tag_red"
+                android:padding="5dp"
+                android:text="@string/edited"
+                android:textColor="@color/white"
+                app:createdAt="@{item.createdAt}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:modifiedAt="@{item.modifiedAt}" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/createdDateTextView"
+                android:layout_width="@dimen/margin_0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:modifiedTimeStamp="@{item.createdAt}"
+                tools:text="09.10.2022 Saturday" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</layout>

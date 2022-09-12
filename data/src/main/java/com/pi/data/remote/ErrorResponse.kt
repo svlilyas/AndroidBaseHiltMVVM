@@ -1,8 +1,6 @@
 package com.pi.data.remote
 
 /**
- * A customized pokemon error response.
- *
  * @param code A network response code.
  * @param message A network error message.
  */

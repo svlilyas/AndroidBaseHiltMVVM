@@ -70,7 +70,4 @@ pluginManagement {
 // https://github.com/igorwojda/android-showcase#dependency-management
 @Suppress("detekt.StringLiteralDuplication")
 dependencyResolutionManagement {
-    versionCatalogs {
-
-    }
 }

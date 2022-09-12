@@ -6,9 +6,17 @@ import com.pi.androidbasehiltmvvm.core.extensions.asLiveData
 import com.pi.androidbasehiltmvvm.BuildConfig
 import kotlin.properties.Delegates
 
+/**
+ * Base ViewModel to manage to put all common methods and manage
+ * @param ViewState is for storing state of the view
+ * @param ViewAction is for storing all actions about the view
+ */
 abstract class BaseViewModel<ViewState : BaseViewState, ViewAction : BaseViewEvent>(initialState: ViewState) :
     ViewModel() {
 
+    /**
+     * For storing ViewState
+     */
     private val stateMutableLiveData = MutableLiveData<ViewState>()
     val stateLiveData = stateMutableLiveData.asLiveData()
 
@@ -20,8 +28,11 @@ abstract class BaseViewModel<ViewState : BaseViewState, ViewAction : BaseViewEve
         }
     }
 
-    // Delegate will handle state event deduplication
-    // (multiple states of the same type holding the same data will not be dispatched multiple times to LiveData stream)
+    /**
+     * Delegate will handle state event deduplication
+     * (multiple states of the same type holding the same data
+     * will not be dispatched multiple times to LiveData stream)
+     */
     protected var state by Delegates.observable(initialState) { _, old, new ->
         stateMutableLiveData.value = new
 

@@ -192,6 +192,7 @@ dependencies {
     implementation(libs.bundles.stetho)
     implementation(libs.bundles.retrofit)
     implementation(libs.bundles.okhttp)
+    implementation(libs.material)
     implementation(libs.play.core)
     implementation(libs.bundles.ktx)
     implementation(libs.bundles.navigation)
@@ -204,9 +205,12 @@ dependencies {
     implementation(libs.recyclerview)
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
+    implementation(libs.coil)
     implementation(libs.multidex)
+    implementation(libs.work.manager.runtime)
 
-    testImplementation(libs.bundles.test)
+    testImplementation(libs.bundles.unitTest)
+    androidTestImplementation(libs.bundles.instrumentationTest)
 }
 
 fun ApplicationProductFlavor.stringField(entry: Pair<String, String>) {

@@ -4,9 +4,10 @@ import androidx.annotation.WorkerThread
 import com.pi.data.mapper.ErrorResponseMapper
 import com.pi.data.network.MainClient
 import com.pi.data.persistence.AppDao
-import com.skydoves.pokedex.repository.Repository
+import com.pi.data.remote.response.Note
 import com.skydoves.sandwich.*
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onCompletion
@@ -47,5 +48,37 @@ class MainRepository @Inject constructor(
         } else {
             emit(sampleInfo)
         }
+    }.onCompletion { onComplete() }.flowOn(ioDispatcher)
+
+
+    @WorkerThread
+    fun insertNote(
+        note: Note,
+        onComplete: () -> Unit
+    ): Flow<Unit> = flow {
+        emit(appDao.insert(note = note))
+    }.onCompletion { onComplete() }.flowOn(ioDispatcher)
+
+    @WorkerThread
+    fun updateNote(
+        note: Note,
+        onComplete: () -> Unit
+    ): Flow<Unit> = flow {
+        emit(appDao.updateWithTimeStamp(note = note))
+    }.onCompletion { onComplete() }.flowOn(ioDispatcher)
+
+    @WorkerThread
+    fun deleteNote(
+        note: Note,
+        onComplete: () -> Unit
+    ): Flow<Int> = flow {
+        emit(appDao.delete(note = note))
+    }.onCompletion { onComplete() }.flowOn(ioDispatcher)
+
+    @WorkerThread
+    fun getAllNotes(
+        onComplete: () -> Unit
+    ) = flow {
+        emit(appDao.getAllNotes())
     }.onCompletion { onComplete() }.flowOn(ioDispatcher)
 }

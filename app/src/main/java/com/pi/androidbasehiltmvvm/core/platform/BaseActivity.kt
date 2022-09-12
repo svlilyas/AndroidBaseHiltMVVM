@@ -12,6 +12,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import timber.log.Timber
 
+/**
+ * Base activity for managing common functions,
+ * to reduce code size and improve code quality
+ */
 abstract class BaseActivity<DB : ViewDataBinding, VM : ViewModel>(
     @LayoutRes private val layoutId: Int,
     private val viewModelClass: Class<VM>
