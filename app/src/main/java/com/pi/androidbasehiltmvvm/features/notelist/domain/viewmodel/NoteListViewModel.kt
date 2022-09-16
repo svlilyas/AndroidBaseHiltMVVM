@@ -1,15 +1,18 @@
 package com.pi.androidbasehiltmvvm.features.notelist.domain.viewmodel
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.pi.androidbasehiltmvvm.core.common.data.UiState
 import com.pi.androidbasehiltmvvm.core.extensions.Event
-import com.pi.androidbasehiltmvvm.core.extensions.asLiveData
 import com.pi.androidbasehiltmvvm.core.platform.viewmodel.BaseViewModel
 import com.pi.androidbasehiltmvvm.features.notelist.domain.usecase.NoteListUseCase
 import com.pi.androidbasehiltmvvm.features.notelist.domain.viewevent.NoteListViewEvent
-import com.pi.data.remote.response.Note
 import com.pi.androidbasehiltmvvm.features.notelist.domain.viewstate.NoteListViewState
+import com.pi.data.remote.response.Note
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,11 +21,11 @@ class NoteListViewModel @Inject constructor(
     private val useCase: NoteListUseCase
 ) : BaseViewModel<NoteListViewState, NoteListViewEvent>(NoteListViewState()) {
 
-    private val _event = MutableLiveData<Event<NoteListViewEvent>>()
-    val event = _event.asLiveData()
+    private val _event = MutableSharedFlow<Event<NoteListViewEvent>>()
+    val event = _event.asSharedFlow()
 
-    private val _noteList = MutableLiveData<List<Note>>()
-    val noteList = _noteList.asLiveData()
+    private val _noteList = MutableStateFlow<List<Note>>(emptyList())
+    val noteList = _noteList.asStateFlow()
 
     init {
         /*val fakeNoteList = arrayListOf(
@@ -60,7 +63,11 @@ class NoteListViewModel @Inject constructor(
         }*/
     }
 
-    private fun sendEvent(event: NoteListViewEvent) = _event.postValue(Event(event))
+    private fun sendEvent(event: NoteListViewEvent) {
+        viewModelScope.launch {
+            _event.emit(Event(event))
+        }
+    }
 
     fun navigateToCreateNote() {
         sendEvent(NoteListViewEvent.NavigateToCreateNote)
@@ -73,7 +80,7 @@ class NoteListViewModel @Inject constructor(
     fun getAllNotes() {
         viewModelScope.launch {
             useCase.getAllNotes().collect { list ->
-                _noteList.postValue(list)
+                _noteList.emit(list)
             }
         }
     }

@@ -1,17 +1,19 @@
 package com.pi.androidbasehiltmvvm.features.createeditnote.domain.viewmodel
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.pi.androidbasehiltmvvm.core.extensions.Event
-import com.pi.androidbasehiltmvvm.core.extensions.asLiveData
 import com.pi.androidbasehiltmvvm.core.platform.viewmodel.BaseViewModel
 import com.pi.androidbasehiltmvvm.core.utils.AppConstants.Companion.EMPTY_STRING
 import com.pi.androidbasehiltmvvm.core.utils.AppConstants.Companion.ZERO_INT
 import com.pi.androidbasehiltmvvm.features.createeditnote.domain.usecase.CreateEditNoteUseCase
 import com.pi.androidbasehiltmvvm.features.createeditnote.domain.viewevent.CreateEditNoteViewEvent
-import com.pi.data.remote.response.Note
 import com.pi.androidbasehiltmvvm.features.createeditnote.domain.viewstate.CreateEditNoteViewState
+import com.pi.data.remote.response.Note
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,38 +22,46 @@ class CreateEditNoteViewModel @Inject constructor(
     private val useCase: CreateEditNoteUseCase
 ) : BaseViewModel<CreateEditNoteViewState, CreateEditNoteViewEvent>(CreateEditNoteViewState()) {
 
-    private val _event = MutableLiveData<Event<CreateEditNoteViewEvent>>()
-    val event = _event.asLiveData()
+    private val _event = MutableSharedFlow<Event<CreateEditNoteViewEvent>>()
+    val event = _event.asSharedFlow()
 
-    val _id = MutableLiveData(ZERO_INT)
+    val _id = MutableStateFlow(ZERO_INT)
 
-    val _imageUrl = MutableLiveData(EMPTY_STRING)
-    val imageUrl = _imageUrl.asLiveData()
+    val _imageUrl = MutableStateFlow(EMPTY_STRING)
+    val imageUrl = _imageUrl.asStateFlow()
 
-    val _title = MutableLiveData(EMPTY_STRING)
+    val _title = MutableStateFlow(EMPTY_STRING)
 
-    val _description = MutableLiveData(EMPTY_STRING)
+    val _description = MutableStateFlow(EMPTY_STRING)
 
-    private val _isNoteExist = MutableLiveData(false)
-    val isNoteExist = _isNoteExist.asLiveData()
+    private val _isNoteExist = MutableStateFlow(false)
+    val isNoteExist = _isNoteExist.asStateFlow()
 
-    private fun sendEvent(event: CreateEditNoteViewEvent) = _event.postValue(Event(event))
+    private fun sendEvent(event: CreateEditNoteViewEvent) {
+
+        viewModelScope.launch {
+            _event.emit(Event(event))
+        }
+    }
 
     fun setViewData(note: Note?, isExist: Boolean) {
-        if (isExist && note != null) {
-            with(note) {
-                _id.postValue(id)
-                _imageUrl.postValue(imageUrl)
-                _title.postValue(title)
-                _description.postValue(description)
+
+        viewModelScope.launch {
+            if (isExist && note != null) {
+                with(note) {
+                    _id.emit(id)
+                    _imageUrl.emit(imageUrl)
+                    _title.emit(title)
+                    _description.emit(description)
+                }
             }
+            _isNoteExist.emit(isExist)
         }
-        _isNoteExist.postValue(isExist)
     }
 
     fun saveNoteAndNavigateToList(newNote: Note) {
         viewModelScope.launch {
-            if (_isNoteExist.value == true) {
+            if (_isNoteExist.value) {
                 useCase.updateNote(newNote).collect {}
             } else {
                 useCase.insertNote(newNote).collect {}
@@ -62,10 +72,10 @@ class CreateEditNoteViewModel @Inject constructor(
 
     fun controlNoteDetails() {
         val newNote = Note(
-            id = _id.value ?: 0,
-            title = _title.value.toString(),
-            description = _description.value.toString(),
-            imageUrl = _imageUrl.value.toString()
+            id = _id.value,
+            title = _title.value,
+            description = _description.value,
+            imageUrl = _imageUrl.value
         )
 
         sendEvent(CreateEditNoteViewEvent.ControlNoteDetails(newNote = newNote))

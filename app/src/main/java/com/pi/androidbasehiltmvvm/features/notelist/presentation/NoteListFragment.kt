@@ -4,6 +4,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.pi.androidbasehiltmvvm.R
+import com.pi.androidbasehiltmvvm.core.extensions.observe
 import com.pi.androidbasehiltmvvm.core.extensions.observeEvent
 import com.pi.androidbasehiltmvvm.core.extensions.toast
 import com.pi.androidbasehiltmvvm.core.navigation.PageName
@@ -76,10 +77,12 @@ class NoteListFragment :
      * Observing View Events and noteList to fill the View
      */
     override fun observeData() {
+
         observeEvent(viewModel.event, ::onViewEvent)
 
-        viewModel.noteList.observe(viewLifecycleOwner) { noteList ->
-            if (!noteList.isNullOrEmpty()) {
+        observe(viewModel.noteList) { noteList ->
+
+            if (noteList.isNotEmpty()) {
                 noteAdapter.submitList(noteList)
             }
         }

@@ -4,6 +4,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.pi.androidbasehiltmvvm.R
 import com.pi.androidbasehiltmvvm.core.binding.ImageViewBinding.loadImage
+import com.pi.androidbasehiltmvvm.core.extensions.observe
 import com.pi.androidbasehiltmvvm.core.extensions.observeEvent
 import com.pi.androidbasehiltmvvm.core.extensions.toast
 import com.pi.androidbasehiltmvvm.core.navigation.PageName
@@ -50,7 +51,8 @@ class CreateEditNoteFragment : BaseFragment<FragmentCreateEditNoteBinding, Creat
     override fun observeData() {
         observeEvent(viewModel.event, ::onViewEvent)
 
-        viewModel.imageUrl.observe(viewLifecycleOwner) { imageUrl ->
+        observe(viewModel.imageUrl) { imageUrl ->
+
             binding.noteImageView.loadImage(
                 url = imageUrl,
                 placeholder = getDrawable(R.drawable.ic_placeholder),

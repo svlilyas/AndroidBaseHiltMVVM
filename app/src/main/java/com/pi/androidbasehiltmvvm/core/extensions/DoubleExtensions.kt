@@ -5,7 +5,7 @@ import android.content.res.Resources
 import android.util.TypedValue
 import java.text.DecimalFormat
 
-fun Double?.decimalFormat(forceComma: Boolean = false): String {
+fun Double?.decimalFormat(): String {
     val decimalFormatForceComma = DecimalFormat("#,##0")
 
     this?.let { value ->
@@ -49,7 +49,7 @@ fun Double.formatMinute(): String {
     return String.format("%s:%s", hour.padStart(2, '0'), minute.padStart(2, '0'))
 }
 
-fun Number.dpToPx(context: Context? = null): Float =
+fun Number.dpToPx(): Float =
     TypedValue.applyDimension(
         TypedValue.COMPLEX_UNIT_DIP,
         this.toFloat(),

@@ -1,3 +1,7 @@
 package com.pi.androidbasehiltmvvm.core.platform.viewmodel
 
-interface BaseViewState
+import com.pi.androidbasehiltmvvm.core.common.data.UiState
+
+interface BaseViewState {
+    val viewState: UiState
+}

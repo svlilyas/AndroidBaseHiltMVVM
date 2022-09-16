@@ -1,9 +1,11 @@
 package com.pi.androidbasehiltmvvm.core.platform.viewmodel
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.pi.androidbasehiltmvvm.core.extensions.asLiveData
+import androidx.lifecycle.viewModelScope
 import com.pi.androidbasehiltmvvm.BuildConfig
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.launch
 import kotlin.properties.Delegates
 
 /**
@@ -17,8 +19,8 @@ abstract class BaseViewModel<ViewState : BaseViewState, ViewAction : BaseViewEve
     /**
      * For storing ViewState
      */
-    private val stateMutableLiveData = MutableLiveData<ViewState>()
-    val stateLiveData = stateMutableLiveData.asLiveData()
+    private val stateMutableLiveData = MutableSharedFlow<ViewState>()
+    val stateLiveData = stateMutableLiveData.asSharedFlow()
 
     private var stateTimeTravelDebugger: StateTimeTravelDebugger? = null
 
@@ -34,7 +36,10 @@ abstract class BaseViewModel<ViewState : BaseViewState, ViewAction : BaseViewEve
      * will not be dispatched multiple times to LiveData stream)
      */
     protected var state by Delegates.observable(initialState) { _, old, new ->
-        stateMutableLiveData.value = new
+
+        viewModelScope.launch {
+            stateMutableLiveData.emit(new)
+        }
 
         if (new != old) {
             stateTimeTravelDebugger?.apply {
