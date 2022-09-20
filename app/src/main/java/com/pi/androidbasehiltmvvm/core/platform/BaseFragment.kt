@@ -24,7 +24,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.pi.androidbasehiltmvvm.R
+import com.pi.androidbasehiltmvvm.core.extensions.observe
+import com.pi.androidbasehiltmvvm.core.platform.viewmodel.BaseViewModel
+import timber.log.Timber
 
 abstract class BaseFragment<DB : ViewDataBinding, VM : ViewModel>(
     @LayoutRes private val layoutId: Int,
@@ -34,7 +38,6 @@ abstract class BaseFragment<DB : ViewDataBinding, VM : ViewModel>(
     open var useSharedViewModel: Boolean = false
 
     lateinit var binding: DB
-    lateinit var viewModelProvider: ViewModelProvider
 
     val viewModel: VM by lazy {
         if (useSharedViewModel) {
@@ -63,6 +66,7 @@ abstract class BaseFragment<DB : ViewDataBinding, VM : ViewModel>(
         getViewData()
         observeData()
         getScreenKey()
+        observeNavigation()
     }
 
     open fun setUpViews() {}
@@ -70,6 +74,29 @@ abstract class BaseFragment<DB : ViewDataBinding, VM : ViewModel>(
     open fun getViewData() {}
 
     open fun observeData() {}
+
+    private fun observeNavigation() {
+        when (viewModel) {
+            is BaseViewModel<*, *> -> {
+
+                val baseViewModel = viewModel as BaseViewModel<*, *>
+
+                observe(baseViewModel.navigation) {
+                    it.getContentIfNotHandled()?.let { navAction ->
+                        handleNavigation(navAction = navAction)
+                        Timber.e("Example Log!")
+                    }
+                }
+            }
+        }
+    }
+
+    private fun handleNavigation(navAction: NavigationAction) {
+        when (navAction) {
+            is NavigationAction.ToDirection -> findNavController().navigate(navAction.direction)
+            NavigationAction.Back -> findNavController().navigateUp()
+        }
+    }
 
     abstract fun getScreenKey(): String
 

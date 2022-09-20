@@ -1,7 +1,7 @@
 package com.pi.androidbasehiltmvvm.features
 
 import com.pi.androidbasehiltmvvm.core.common.data.UiState
-import com.pi.androidbasehiltmvvm.core.platform.viewmodel.BaseViewEvent
+import com.pi.androidbasehiltmvvm.core.platform.viewmodel.BaseAction
 import com.pi.androidbasehiltmvvm.core.platform.viewmodel.BaseViewModel
 import com.pi.androidbasehiltmvvm.core.platform.viewmodel.BaseViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -9,20 +9,20 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor() :
-    BaseViewModel<MainViewModel.ViewState, MainViewModel.ViewEvent>(ViewState()) {
+    BaseViewModel<MainViewModel.ViewState, MainViewModel.Action>(ViewState()) {
 
     data class ViewState(
         val data: String = "",
-        override val viewState: UiState = UiState.SUCCESS
+        override val uiState: UiState = UiState.SUCCESS
     ) : BaseViewState
 
-    sealed interface ViewEvent : BaseViewEvent {
-        object AlbumListLoadingFailure : ViewEvent
+    sealed interface Action : BaseAction {
+        object AlbumListLoadingFailure : Action
     }
 
-    override fun onReduceState(viewAction: ViewEvent): ViewState = when (viewAction) {
-        ViewEvent.AlbumListLoadingFailure -> state.copy(
-            viewState = UiState.ERROR
+    override fun onReduceState(viewAction: Action): ViewState = when (viewAction) {
+        Action.AlbumListLoadingFailure -> state.copy(
+            uiState = UiState.ERROR
         )
     }
 }

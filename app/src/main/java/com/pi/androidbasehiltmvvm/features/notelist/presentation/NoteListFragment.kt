@@ -1,17 +1,16 @@
 package com.pi.androidbasehiltmvvm.features.notelist.presentation
 
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.pi.androidbasehiltmvvm.R
+import com.pi.androidbasehiltmvvm.core.binding.ViewBinding.visible
+import com.pi.androidbasehiltmvvm.core.extensions.changeUiState
 import com.pi.androidbasehiltmvvm.core.extensions.observe
-import com.pi.androidbasehiltmvvm.core.extensions.observeEvent
 import com.pi.androidbasehiltmvvm.core.extensions.toast
 import com.pi.androidbasehiltmvvm.core.navigation.PageName
 import com.pi.androidbasehiltmvvm.core.platform.BaseFragment
 import com.pi.androidbasehiltmvvm.core.utils.SwipeGesture
 import com.pi.androidbasehiltmvvm.databinding.FragmentNoteListBinding
-import com.pi.androidbasehiltmvvm.features.notelist.domain.viewevent.NoteListViewEvent
 import com.pi.androidbasehiltmvvm.features.notelist.domain.viewmodel.NoteListViewModel
 import com.pi.androidbasehiltmvvm.features.notelist.presentation.adapter.NoteAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,8 +40,16 @@ class NoteListFragment :
             viewmodel = viewModel
 
             // Setup Adapter with Recyclerview
-            noteAdapter = NoteAdapter(viewModel)
+            noteAdapter = NoteAdapter()
+            notesRecyclerView.setHasFixedSize(true)
             notesRecyclerView.adapter = noteAdapter
+
+            /**
+             * Adapter click listeners
+             */
+            noteAdapter.setOnDebouncedClickListener { note ->
+                viewModel.navigateToEditNote(note = note)
+            }
 
             initializeRecyclerViewGesture()
         }
@@ -78,33 +85,13 @@ class NoteListFragment :
      */
     override fun observeData() {
 
-        observeEvent(viewModel.event, ::onViewEvent)
+        observe(viewModel.uiStateFlow) { viewState ->
+            binding.apply {
+                progressBar.changeUiState(uiState = viewState.uiState)
 
-        observe(viewModel.noteList) { noteList ->
+                notesRecyclerView.visible = viewState.noteList.isNotEmpty()
 
-            if (noteList.isNotEmpty()) {
-                noteAdapter.submitList(noteList)
-            }
-        }
-    }
-
-    private fun onViewEvent(event: NoteListViewEvent) {
-        when (event) {
-            NoteListViewEvent.NavigateToCreateNote -> {
-                findNavController().navigate(
-                    NoteListFragmentDirections.actionNoteListFragmentToCreateEditNoteFragment(
-                        note = null,
-                        isNoteExist = false
-                    )
-                )
-            }
-            is NoteListViewEvent.NavigateToEditNote -> {
-                findNavController().navigate(
-                    NoteListFragmentDirections.actionNoteListFragmentToCreateEditNoteFragment(
-                        note = event.note,
-                        isNoteExist = true
-                    )
-                )
+                noteAdapter.submitList(viewState.noteList)
             }
         }
     }

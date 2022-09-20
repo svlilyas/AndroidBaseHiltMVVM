@@ -19,7 +19,6 @@
         android:layout_height="150dp"
         android:layout_marginHorizontal="8dp"
         android:layout_marginVertical="4dp"
-        android:onClick="@{()-> viewmodel.navigateToEditNote(item)}"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="@dimen/margin_4dp"
         app:cardElevation="@dimen/margin_4dp">

@@ -1,18 +1,17 @@
 package com.pi.androidbasehiltmvvm.features.createeditnote.domain.viewmodel
 
 import androidx.lifecycle.viewModelScope
-import com.pi.androidbasehiltmvvm.core.extensions.Event
+import com.pi.androidbasehiltmvvm.core.common.data.UiState
 import com.pi.androidbasehiltmvvm.core.platform.viewmodel.BaseViewModel
-import com.pi.androidbasehiltmvvm.core.utils.AppConstants.Companion.EMPTY_STRING
+import com.pi.androidbasehiltmvvm.core.utils.AppConstants.Companion.STRING_EMPTY
 import com.pi.androidbasehiltmvvm.core.utils.AppConstants.Companion.ZERO_INT
 import com.pi.androidbasehiltmvvm.features.createeditnote.domain.usecase.CreateEditNoteUseCase
-import com.pi.androidbasehiltmvvm.features.createeditnote.domain.viewevent.CreateEditNoteViewEvent
+import com.pi.androidbasehiltmvvm.features.createeditnote.domain.viewaction.CreateEditNoteAction
 import com.pi.androidbasehiltmvvm.features.createeditnote.domain.viewstate.CreateEditNoteViewState
+import com.pi.androidbasehiltmvvm.features.createeditnote.presentation.CreateEditNoteFragmentDirections
 import com.pi.data.remote.response.Note
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,29 +19,21 @@ import javax.inject.Inject
 @HiltViewModel
 class CreateEditNoteViewModel @Inject constructor(
     private val useCase: CreateEditNoteUseCase
-) : BaseViewModel<CreateEditNoteViewState, CreateEditNoteViewEvent>(CreateEditNoteViewState()) {
+) : BaseViewModel<CreateEditNoteViewState, CreateEditNoteAction>(CreateEditNoteViewState()) {
 
-    private val _event = MutableSharedFlow<Event<CreateEditNoteViewEvent>>()
-    val event = _event.asSharedFlow()
+    private val navDirections = CreateEditNoteFragmentDirections
 
     val _id = MutableStateFlow(ZERO_INT)
 
-    val _imageUrl = MutableStateFlow(EMPTY_STRING)
+    val _imageUrl = MutableStateFlow(STRING_EMPTY)
     val imageUrl = _imageUrl.asStateFlow()
 
-    val _title = MutableStateFlow(EMPTY_STRING)
+    val _title = MutableStateFlow(STRING_EMPTY)
 
-    val _description = MutableStateFlow(EMPTY_STRING)
+    val _description = MutableStateFlow(STRING_EMPTY)
 
     private val _isNoteExist = MutableStateFlow(false)
     val isNoteExist = _isNoteExist.asStateFlow()
-
-    private fun sendEvent(event: CreateEditNoteViewEvent) {
-
-        viewModelScope.launch {
-            _event.emit(Event(event))
-        }
-    }
 
     fun setViewData(note: Note?, isExist: Boolean) {
 
@@ -56,9 +47,13 @@ class CreateEditNoteViewModel @Inject constructor(
                 }
             }
             _isNoteExist.emit(isExist)
+            sendAction(CreateEditNoteAction.NoteDetailLoadSuccess(note = note))
         }
     }
 
+    /**
+     * Saving or Updating the note
+     */
     fun saveNoteAndNavigateToList(newNote: Note) {
         viewModelScope.launch {
             if (_isNoteExist.value) {
@@ -67,7 +62,9 @@ class CreateEditNoteViewModel @Inject constructor(
                 useCase.insertNote(newNote).collect {}
             }
         }
-        sendEvent(CreateEditNoteViewEvent.SaveNoteAndNavigateToList)
+
+        val direction = navDirections.actionCreateEditNoteFragmentToNoteListFragment()
+        navigate(direction)
     }
 
     fun controlNoteDetails() {
@@ -78,20 +75,24 @@ class CreateEditNoteViewModel @Inject constructor(
             imageUrl = _imageUrl.value
         )
 
-        sendEvent(CreateEditNoteViewEvent.ControlNoteDetails(newNote = newNote))
+        sendAction(CreateEditNoteAction.ControlNoteDetails(newNote = newNote))
     }
 
-    override fun onReduceState(viewAction: CreateEditNoteViewEvent): CreateEditNoteViewState =
+    override fun onReduceState(viewAction: CreateEditNoteAction): CreateEditNoteViewState =
         when (viewAction) {
-            CreateEditNoteViewEvent.SaveNoteAndNavigateToList -> state.copy(
-                isLoading = false,
-                isError = false,
-                fakeData = "fakeData"
+            is CreateEditNoteAction.NoteDetailLoadSuccess -> state.copy(
+                newNote = null,
+                sentNote = viewAction.note,
+                uiState = UiState.SUCCESS
             )
-            is CreateEditNoteViewEvent.ControlNoteDetails -> state.copy(
-                isLoading = false,
-                isError = false,
-                fakeData = "fakeData"
+
+            is CreateEditNoteAction.ControlNoteDetails -> state.copy(
+                newNote = viewAction.newNote
+            )
+            CreateEditNoteAction.NoteDetailLoadError -> state.copy(
+                sentNote = null,
+                newNote = null,
+                uiState = UiState.ERROR
             )
         }
 }

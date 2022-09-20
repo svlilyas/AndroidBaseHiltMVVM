@@ -2,9 +2,14 @@ package com.pi.androidbasehiltmvvm.core.platform.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavDirections
 import com.pi.androidbasehiltmvvm.BuildConfig
+import com.pi.androidbasehiltmvvm.core.extensions.Event
+import com.pi.androidbasehiltmvvm.core.platform.NavigationAction
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlin.properties.Delegates
 
@@ -13,14 +18,21 @@ import kotlin.properties.Delegates
  * @param ViewState is for storing state of the view
  * @param ViewAction is for storing all actions about the view
  */
-abstract class BaseViewModel<ViewState : BaseViewState, ViewAction : BaseViewEvent>(initialState: ViewState) :
+abstract class BaseViewModel<ViewState : BaseViewState,
+        ViewAction : BaseAction>(initialState: ViewState) :
     ViewModel() {
 
     /**
      * For storing ViewState
      */
-    private val stateMutableLiveData = MutableSharedFlow<ViewState>()
-    val stateLiveData = stateMutableLiveData.asSharedFlow()
+    private val _uiStateFlow = MutableStateFlow(initialState)
+    val uiStateFlow = _uiStateFlow.asStateFlow()
+
+    /**
+     * For triggering navigation actions
+     */
+    private val _navigation = MutableSharedFlow<Event<NavigationAction>>()
+    val navigation = _navigation.asSharedFlow()
 
     private var stateTimeTravelDebugger: StateTimeTravelDebugger? = null
 
@@ -38,7 +50,7 @@ abstract class BaseViewModel<ViewState : BaseViewState, ViewAction : BaseViewEve
     protected var state by Delegates.observable(initialState) { _, old, new ->
 
         viewModelScope.launch {
-            stateMutableLiveData.emit(new)
+            _uiStateFlow.emit(new)
         }
 
         if (new != old) {
@@ -46,6 +58,18 @@ abstract class BaseViewModel<ViewState : BaseViewState, ViewAction : BaseViewEve
                 addStateTransition(old, new)
                 logLast()
             }
+        }
+    }
+
+    fun navigate(navDirections: NavDirections) {
+        viewModelScope.launch {
+            _navigation.emit(Event(NavigationAction.ToDirection(navDirections)))
+        }
+    }
+
+    fun navigateBack() {
+        viewModelScope.launch {
+            _navigation.emit(Event(NavigationAction.Back))
         }
     }
 

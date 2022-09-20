@@ -2,30 +2,22 @@ package com.pi.androidbasehiltmvvm.features.notelist.domain.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import com.pi.androidbasehiltmvvm.core.common.data.UiState
-import com.pi.androidbasehiltmvvm.core.extensions.Event
 import com.pi.androidbasehiltmvvm.core.platform.viewmodel.BaseViewModel
 import com.pi.androidbasehiltmvvm.features.notelist.domain.usecase.NoteListUseCase
-import com.pi.androidbasehiltmvvm.features.notelist.domain.viewevent.NoteListViewEvent
+import com.pi.androidbasehiltmvvm.features.notelist.domain.viewaction.NoteListAction
 import com.pi.androidbasehiltmvvm.features.notelist.domain.viewstate.NoteListViewState
+import com.pi.androidbasehiltmvvm.features.notelist.presentation.NoteListFragmentDirections
 import com.pi.data.remote.response.Note
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class NoteListViewModel @Inject constructor(
     private val useCase: NoteListUseCase
-) : BaseViewModel<NoteListViewState, NoteListViewEvent>(NoteListViewState()) {
+) : BaseViewModel<NoteListViewState, NoteListAction>(NoteListViewState()) {
 
-    private val _event = MutableSharedFlow<Event<NoteListViewEvent>>()
-    val event = _event.asSharedFlow()
-
-    private val _noteList = MutableStateFlow<List<Note>>(emptyList())
-    val noteList = _noteList.asStateFlow()
+    private val navDirections = NoteListFragmentDirections
 
     init {
         /*val fakeNoteList = arrayListOf(
@@ -63,24 +55,26 @@ class NoteListViewModel @Inject constructor(
         }*/
     }
 
-    private fun sendEvent(event: NoteListViewEvent) {
-        viewModelScope.launch {
-            _event.emit(Event(event))
-        }
-    }
-
     fun navigateToCreateNote() {
-        sendEvent(NoteListViewEvent.NavigateToCreateNote)
+        val direction = navDirections.actionNoteListFragmentToCreateEditNoteFragment(
+            note = null,
+            isNoteExist = false
+        )
+        navigate(direction)
     }
 
     fun navigateToEditNote(note: Note) {
-        sendEvent(NoteListViewEvent.NavigateToEditNote(note = note))
+        val direction = navDirections.actionNoteListFragmentToCreateEditNoteFragment(
+            note = note,
+            isNoteExist = true
+        )
+        navigate(direction)
     }
 
     fun getAllNotes() {
         viewModelScope.launch {
             useCase.getAllNotes().collect { list ->
-                _noteList.emit(list)
+                sendAction(NoteListAction.GetNoteListSuccess(list))
             }
         }
     }
@@ -91,17 +85,15 @@ class NoteListViewModel @Inject constructor(
         }
     }
 
-    override fun onReduceState(viewAction: NoteListViewEvent): NoteListViewState =
+    override fun onReduceState(viewAction: NoteListAction): NoteListViewState =
         when (viewAction) {
-            is NoteListViewEvent.NavigateToEditNote -> state.copy(
-                isLoading = false,
-                isError = false,
-                fakeData = "fakeData"
+            is NoteListAction.GetNoteListSuccess -> state.copy(
+                noteList = viewAction.noteList,
+                uiState = UiState.SUCCESS
             )
-            NoteListViewEvent.NavigateToCreateNote -> state.copy(
-                isLoading = false,
-                isError = false,
-                fakeData = "fakeData"
+            NoteListAction.GetNoteListFailure -> state.copy(
+                noteList = emptyList(),
+                uiState = UiState.ERROR
             )
         }
 }
