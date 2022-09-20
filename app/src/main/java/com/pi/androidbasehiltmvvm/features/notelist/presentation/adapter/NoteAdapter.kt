@@ -3,22 +3,21 @@ package com.pi.androidbasehiltmvvm.features.notelist.presentation.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.pi.androidbasehiltmvvm.core.extensions.setOnDebouncedClickListener
 import com.pi.androidbasehiltmvvm.core.platform.BaseListAdapter
 import com.pi.androidbasehiltmvvm.core.platform.BaseViewHolder
 import com.pi.androidbasehiltmvvm.databinding.ItemNoteListBinding
-import com.pi.androidbasehiltmvvm.features.notelist.domain.viewmodel.NoteListViewModel
 import com.pi.data.remote.response.Note
 
 /**
  * Adapter with viewModel to manage events
  * and DiffUtil to change the list without notifyData
  */
-class NoteAdapter(
-    private val viewModel: NoteListViewModel
-) : BaseListAdapter<Note>(
+class NoteAdapter() : BaseListAdapter<Note>(
     itemsSame = { old, new -> old.id == new.id },
     contentsSame = { old, new -> old == new }
 ) {
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         inflater: LayoutInflater,
@@ -33,7 +32,7 @@ class NoteAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is NoteViewHolder -> {
-                holder.bind(getItem(position), viewModel)
+                holder.bind(getItem(position))
             }
         }
     }
@@ -52,21 +51,24 @@ class NoteAdapter(
 
         return removedItem
     }
-}
 
-/**
- * Binding Note model with its view @DataBinding
- */
-class NoteViewHolder(parent: ViewGroup, inflater: LayoutInflater) :
-    BaseViewHolder<ItemNoteListBinding>(
-        ItemNoteListBinding.inflate(inflater, parent, false)
-    ) {
-    fun bind(note: Note, viewModel: NoteListViewModel) {
-        binding.apply {
-            viewmodel = viewModel
-            item = note
+    /**
+     * Binding Note model with its view - @DataBinding
+     */
+    internal inner class NoteViewHolder(parent: ViewGroup, inflater: LayoutInflater) :
+        BaseViewHolder<ItemNoteListBinding>(
+            ItemNoteListBinding.inflate(inflater, parent, false)
+        ) {
+        fun bind(note: Note) {
+            binding.apply {
+                item = note
 
-            executePendingBindings()
+                itemView.setOnDebouncedClickListener {
+                    debouncedClickListener?.invoke(note)
+                }
+
+                executePendingBindings()
+            }
         }
     }
 }

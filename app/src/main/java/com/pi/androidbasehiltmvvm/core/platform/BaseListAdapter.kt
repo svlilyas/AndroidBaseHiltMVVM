@@ -25,6 +25,12 @@ abstract class BaseListAdapter<T : Any>(
         contentsSame(oldItem, newItem)
 }) {
 
+    var debouncedClickListener: ((item: T) -> Unit)? = null
+
+    fun setOnDebouncedClickListener(listener: (item: T) -> Unit) {
+        debouncedClickListener = listener
+    }
+
     /**
      * Called when RecyclerView needs a new [RecyclerView.ViewHolder] of the given type to
      * represent an item.

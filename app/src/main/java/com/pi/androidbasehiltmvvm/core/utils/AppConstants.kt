@@ -22,7 +22,7 @@ class AppConstants {
         /**
          * STRINGS
          */
-        const val EMPTY_STRING: String = ""
+        const val STRING_EMPTY: String = ""
 
     }
 }

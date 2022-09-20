@@ -1,33 +1,16 @@
 package com.pi.androidbasehiltmvvm.core.network.interceptor
 
-import com.pi.androidbasehiltmvvm.core.common.PreferenceManager
-import com.pi.androidbasehiltmvvm.core.network.NetworkController
-import com.pi.androidbasehiltmvvm.core.network.NetworkUnavailableException
-import com.pi.androidbasehiltmvvm.core.platform.ProjectApplication
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
 import javax.inject.Inject
 
-class ApiRequestInterceptor @Inject constructor(
-    private val networkController: NetworkController?,
-    private val preferenceManager: PreferenceManager
-) : Interceptor {
+class ApiRequestInterceptor @Inject constructor() : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        if (!networkController?.isConnected()!!) {
-            val exception = NetworkUnavailableException()
-            ProjectApplication.networkStatusObservable.postValue(exception)
-            throw exception
-        }
-
         val request = chain.request()
 
-        val response = chain.proceed(request)
-
-        return response.also {
-            networkController.inspectResponse(it)
-        }
+        return chain.proceed(request)
     }
 
     private fun addHeaderToRequest(request: Request): Request {

@@ -4,6 +4,9 @@ import android.content.Context
 import android.os.SystemClock
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.ProgressBar
+import com.pi.androidbasehiltmvvm.core.binding.ViewBinding.visible
+import com.pi.androidbasehiltmvvm.core.common.data.UiState
 
 fun View.hideKeyboard() {
     (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
@@ -27,6 +30,14 @@ fun View.setOnDebouncedClickListener(action: () -> Unit) {
 fun View.removeOnDebouncedClickListener() {
     setOnClickListener(null)
     isClickable = false
+}
+
+
+fun ProgressBar.changeUiState(uiState: UiState) {
+    this.visible = when (uiState) {
+        UiState.LOADING -> true
+        UiState.ERROR, UiState.SUCCESS -> false
+    }
 }
 
 private class ActionDebouncer(private val action: () -> Unit) {

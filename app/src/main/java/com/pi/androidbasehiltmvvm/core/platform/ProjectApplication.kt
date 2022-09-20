@@ -2,11 +2,10 @@ package com.pi.androidbasehiltmvvm.core.platform
 
 import android.app.Application
 import android.content.Context
-import androidx.lifecycle.MutableLiveData
 import androidx.multidex.MultiDex
 import com.pi.androidbasehiltmvvm.BuildConfig
 import com.pi.androidbasehiltmvvm.core.common.PreferenceManager
-import com.pi.androidbasehiltmvvm.core.network.NetworkUnavailableException
+import com.pi.androidbasehiltmvvm.core.network.NetworkConnectivityObserver
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
@@ -32,10 +31,11 @@ class ProjectApplication : Application() {
         lateinit var appContext: Context
 
         /**
-         * Used for checking internet connectivity
+         * Used for checking internet connectivity statuses
+         * Unavailable, Available, Lost and Losing states
          */
-        val networkStatusObservable: MutableLiveData<NetworkUnavailableException> by lazy {
-            MutableLiveData()
+        val connectivityObserver: NetworkConnectivityObserver by lazy {
+            NetworkConnectivityObserver(appContext)
         }
         val preferenceManager: PreferenceManager by lazy {
             PreferenceManager(appContext)
