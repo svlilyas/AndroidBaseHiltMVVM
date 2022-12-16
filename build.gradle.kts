@@ -3,6 +3,8 @@ plugins {
     id(Plugins.ANDROID_APPLICATION) version "7.2.2" apply false
     id(Plugins.ANDROID_LIBRARY) version "7.2.2" apply false
     kotlin(Plugins.ANDROID) version "1.7.10" apply false
+    id(Plugins.GMS) version "4.3.13" apply false
+    id(Plugins.CRASHLYTICS) version "2.9.2" apply false
     id(Plugins.DETEKT)
     id(Plugins.KTLINT_GRADLE)
     id(Plugins.ANDROID_JUNIT_5) apply false

@@ -9,4 +9,6 @@ object Plugins {
     const val KTLINT_GRADLE = "org.jlleitschuh.gradle.ktlint"
     const val ANDROID_JUNIT_5 = "de.mannodermaus.android-junit5"
     const val DAGGER_HILT = "dagger.hilt.android.plugin"
+    const val GMS = "com.google.gms.google-services"
+    const val CRASHLYTICS = "com.google.firebase.crashlytics"
 }

@@ -53,7 +53,7 @@ kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-pl
 hilt-plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hilt" }
 ksp = { module = "com.google.devtools.ksp:symbol-processing", version.ref = "ksp" }
 navigation-plugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref  = "navigation" }
-crashlyrics-plugin = { module = "com.google.firebase:firebase-crashlytics-gradle", version.ref  = "firebaseGradle" }
+crashlytics-plugin = { module = "com.google.firebase:firebase-crashlytics-gradle", version.ref  = "firebaseGradle" }
 googleService-plugin = { module = "com.google.gms:google-services", version.ref  = "googleService" }
 
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }

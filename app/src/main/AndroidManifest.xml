@@ -23,12 +23,12 @@
 
         <provider
             android:name="androidx.startup.InitializationProvider"
-            android:authorities="com.pi.androidbasehiltmvvm.dev.androidx-startup"
+            android:authorities="com.pi.androidbasehiltmvvm.androidx-startup"
             android:exported="false"
             tools:node="merge">
 
             <meta-data
-                android:name="com.pi.androidbasehiltmvvm.core.initializer.TimberInitializer"
+                android:name="com.pi.androidbasehiltmvvm.core.initializer.AppComponentInitializer"
                 android:value="androidx.startup" />
         </provider>
     </application>

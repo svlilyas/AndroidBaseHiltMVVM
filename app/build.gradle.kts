@@ -6,6 +6,8 @@ plugins {
     id(Plugins.ANDROID_APPLICATION)
     kotlin(Plugins.ANDROID)
     kotlin(Plugins.KAPT)
+    id(Plugins.GMS)
+    id(Plugins.CRASHLYTICS)
     id(Plugins.SAFE_ARGS)
     id(Plugins.DAGGER_HILT)
 }
@@ -53,7 +55,7 @@ android {
             isTestCoverageEnabled = true
             isMinifyEnabled = false
             isDebuggable = true
-            // applicationIdSuffix = ".${Flavors.BuildTypes.DEBUG}"
+            //applicationIdSuffix = ".${Flavors.BuildTypes.DEBUG}"
             // signingConfig = signingConfigs.getByName(Flavors.BuildTypes.RELEASE)
         }
 
@@ -76,7 +78,7 @@ android {
         // dev
         create(Flavors.ProductFlavors.DEV) {
             dimension = Flavors.FlavorDimensions.ENVIRONMENT
-            applicationIdSuffix = ".${Flavors.ProductFlavors.DEV}"
+            //applicationIdSuffix = ".${Flavors.ProductFlavors.DEV}"
             versionNameSuffix = "_${Flavors.ProductFlavors.DEV}"
 
             resValue(
@@ -208,6 +210,11 @@ dependencies {
     implementation(libs.coil)
     implementation(libs.multidex)
     implementation(libs.work.manager.runtime)
+
+    implementation(platform(libs.firebase.bom))
+    implementation("com.google.firebase:firebase-crashlytics")
+    implementation("com.google.firebase:firebase-messaging")
+    implementation("com.google.firebase:firebase-analytics")
 
     testImplementation(libs.bundles.unitTest)
     androidTestImplementation(libs.bundles.instrumentationTest)
