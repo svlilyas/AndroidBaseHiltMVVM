@@ -60,6 +60,7 @@ class NoteListViewModel @Inject constructor(
             note = null,
             isNoteExist = false
         )
+
         navigate(direction)
     }
 

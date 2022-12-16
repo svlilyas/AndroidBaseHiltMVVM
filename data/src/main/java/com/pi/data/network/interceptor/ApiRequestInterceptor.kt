@@ -1,31 +1,13 @@
 package com.pi.data.network.interceptor
 
-import com.pi.data.network.NetworkController
-import com.pi.data.network.NetworkUnavailableException
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
 import javax.inject.Inject
 
-class ApiRequestInterceptor @Inject constructor(
-    private val networkController: NetworkController?
-) : Interceptor {
+class ApiRequestInterceptor @Inject constructor() : Interceptor {
 
-    override fun intercept(chain: Interceptor.Chain): Response {
-        if (networkController?.isConnected() == false) {
-            val exception = NetworkUnavailableException()
-            //ProjectApplication.networkStatusObservable.postValue(exception)
-            throw exception
-        }
-
-        val request = chain.request()
-
-        val response = chain.proceed(request)
-
-        return response.also {
-            networkController?.inspectResponse(it)
-        }
-    }
+    override fun intercept(chain: Interceptor.Chain): Response = chain.proceed(chain.request())
 
     private fun addHeaderToRequest(request: Request): Request {
         val newRequest = request.newBuilder()

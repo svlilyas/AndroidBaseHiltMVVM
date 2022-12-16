@@ -1,6 +1,5 @@
 package com.pi.data.di
 
-import android.content.Context
 import com.pi.data.BuildConfig
 import com.pi.data.network.*
 import com.pi.data.network.interceptor.ApiRequestInterceptor
@@ -11,7 +10,6 @@ import com.skydoves.sandwich.adapters.ApiResponseCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -26,13 +24,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideNetworkController(
-        @ApplicationContext context: Context
-    ) = NetworkController(context)
-
-    @Provides
-    @Singleton
-    fun provideOkHttpClient(@ApplicationContext context: Context): OkHttpClient {
+    fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(provideLoggingInterceptor())
             .addInterceptor(
@@ -40,7 +32,7 @@ object NetworkModule {
             )
             .addInterceptor(provideUserAgentInterceptor())
             .addInterceptor(
-                provideApiRequestInterceptor(context)
+                provideApiRequestInterceptor()
             )
             .callTimeout(DEFAULT_CALL_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)
             .connectTimeout(DEFAULT_CONNECT_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)
@@ -86,10 +78,8 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideApiRequestInterceptor(@ApplicationContext context: Context): ApiRequestInterceptor =
-        ApiRequestInterceptor(
-            provideNetworkController(context)
-        )
+    fun provideApiRequestInterceptor(): ApiRequestInterceptor =
+        ApiRequestInterceptor()
 
     @Provides
     @Singleton

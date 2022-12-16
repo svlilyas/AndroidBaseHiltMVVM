@@ -1,5 +1,8 @@
 package com.pi.androidbasehiltmvvm.features.notelist.presentation
 
+import android.os.Bundle
+import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.pi.androidbasehiltmvvm.R
@@ -7,8 +10,8 @@ import com.pi.androidbasehiltmvvm.core.binding.ViewBinding.visible
 import com.pi.androidbasehiltmvvm.core.extensions.changeUiState
 import com.pi.androidbasehiltmvvm.core.extensions.observe
 import com.pi.androidbasehiltmvvm.core.extensions.toast
-import com.pi.androidbasehiltmvvm.core.navigation.PageName
-import com.pi.androidbasehiltmvvm.core.platform.BaseFragment
+import com.pi.androidbasehiltmvvm.core.platform.delegations.viewBinding
+import com.pi.androidbasehiltmvvm.core.platform.delegations.viewModelWithNavigation
 import com.pi.androidbasehiltmvvm.core.utils.SwipeGesture
 import com.pi.androidbasehiltmvvm.databinding.FragmentNoteListBinding
 import com.pi.androidbasehiltmvvm.features.notelist.domain.viewmodel.NoteListViewModel
@@ -19,25 +22,26 @@ import dagger.hilt.android.AndroidEntryPoint
  * A @Fragment for showing all Notes
  */
 @AndroidEntryPoint
-class NoteListFragment :
-    BaseFragment<FragmentNoteListBinding, NoteListViewModel>(
-        layoutId = R.layout.fragment_note_list,
-        viewModelClass = NoteListViewModel::class.java
-    ) {
-    /**
-     * To know which page we are in - It might use in @DeepLink Feature
-     */
-    override fun getScreenKey(): String = PageName.PreLogin.NOTE_CREATE_EDIT_PAGE
+class NoteListFragment : Fragment(R.layout.fragment_note_list) {
+    private val binding by viewBinding(FragmentNoteListBinding::bind)
+    private val viewModel by viewModelWithNavigation<NoteListViewModel>()
 
-    private lateinit var noteAdapter: NoteAdapter
+    private var noteAdapter: NoteAdapter? = null
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setUpViews()
+        getViewData()
+        observeData()
+    }
 
     /**
      * Initialize view informations and observing recyclerview gestures
      */
-    override fun setUpViews() {
-        super.setUpViews()
+    private fun setUpViews() {
         binding.apply {
-            viewmodel = viewModel
+            vm = viewModel
 
             // Setup Adapter with Recyclerview
             noteAdapter = NoteAdapter()
@@ -47,7 +51,7 @@ class NoteListFragment :
             /**
              * Adapter click listeners
              */
-            noteAdapter.setOnDebouncedClickListener { note ->
+            noteAdapter?.setOnDebouncedClickListener { note ->
                 viewModel.navigateToEditNote(note = note)
             }
 
@@ -62,8 +66,10 @@ class NoteListFragment :
         val swipeGesture = object : SwipeGesture() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 if (direction == ItemTouchHelper.LEFT || direction == ItemTouchHelper.RIGHT) {
-                    val removedItem = noteAdapter.removeItem(viewHolder.absoluteAdapterPosition)
-                    viewModel.deleteNote(removedItem)
+                    val removedItem = noteAdapter?.removeItem(viewHolder.absoluteAdapterPosition)
+                    if (removedItem != null) {
+                        viewModel.deleteNote(removedItem)
+                    }
                     requireContext().toast(R.string.note_removed)
                 }
             }
@@ -76,14 +82,19 @@ class NoteListFragment :
     /**
      * Get all Notes from AppDb
      */
-    override fun getViewData() {
+    private fun getViewData() {
         viewModel.getAllNotes()
+    }
+
+    override fun onDestroyView() {
+        noteAdapter = null
+        super.onDestroyView()
     }
 
     /**
      * Observing View Events and noteList to fill the View
      */
-    override fun observeData() {
+    private fun observeData() {
 
         observe(viewModel.uiStateFlow) { viewState ->
             binding.apply {
@@ -91,7 +102,7 @@ class NoteListFragment :
 
                 notesRecyclerView.visible = viewState.noteList.isNotEmpty()
 
-                noteAdapter.submitList(viewState.noteList)
+                noteAdapter?.submitList(viewState.noteList)
             }
         }
     }

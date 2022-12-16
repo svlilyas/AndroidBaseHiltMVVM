@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "684422744195",
+    "project_id": "androidbasehiltmvvm",
+    "storage_bucket": "androidbasehiltmvvm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:684422744195:android:881292c77179fde96e73b6",
+        "android_client_info": {
+          "package_name": "com.pi.androidbasehiltmvvm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "684422744195-t3ttfc8hc5960k63q1k9fveovp2hl5u1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgSi72SFdTB0NZRiD6x8GSjQPgGNZaYrE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "684422744195-t3ttfc8hc5960k63q1k9fveovp2hl5u1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

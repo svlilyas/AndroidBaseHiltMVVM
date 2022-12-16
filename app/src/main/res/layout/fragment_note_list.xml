@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="viewmodel"
+            name="vm"
             type="com.pi.androidbasehiltmvvm.features.notelist.domain.viewmodel.NoteListViewModel" />
     </data>
 
@@ -30,7 +30,7 @@
             android:layout_margin="16dp"
             android:contentDescription="@string/fab_content_description"
             android:elevation="6dp"
-            android:onClick="@{()->viewmodel.navigateToCreateNote()}"
+            android:onClick="@{()->vm.navigateToCreateNote()}"
             android:src="@drawable/ic_add_black"
             app:fabSize="normal"
             app:layout_constraintBottom_toBottomOf="parent"

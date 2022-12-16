@@ -13,7 +13,7 @@ import com.pi.data.remote.response.Note
  * Adapter with viewModel to manage events
  * and DiffUtil to change the list without notifyData
  */
-class NoteAdapter() : BaseListAdapter<Note>(
+class NoteAdapter : BaseListAdapter<Note>(
     itemsSame = { old, new -> old.id == new.id },
     contentsSame = { old, new -> old == new }
 ) {
