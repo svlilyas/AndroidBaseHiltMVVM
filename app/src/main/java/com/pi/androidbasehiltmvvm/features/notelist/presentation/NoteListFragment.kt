@@ -3,6 +3,7 @@ package com.pi.androidbasehiltmvvm.features.notelist.presentation
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.pi.androidbasehiltmvvm.R
@@ -16,7 +17,11 @@ import com.pi.androidbasehiltmvvm.core.utils.SwipeGesture
 import com.pi.androidbasehiltmvvm.databinding.FragmentNoteListBinding
 import com.pi.androidbasehiltmvvm.features.notelist.domain.viewmodel.NoteListViewModel
 import com.pi.androidbasehiltmvvm.features.notelist.presentation.adapter.NoteAdapter
+import com.pi.data.persistence.EncryptedDataStoreManager
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
 /**
  * A @Fragment for showing all Notes
@@ -28,12 +33,20 @@ class NoteListFragment : Fragment(R.layout.fragment_note_list) {
 
     private var noteAdapter: NoteAdapter? = null
 
+    private val encryptionDataStoreManager by lazy {
+        EncryptedDataStoreManager(requireContext())
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setUpViews()
         getViewData()
         observeData()
+
+        lifecycleScope.launch {
+            getSetData()
+        }
     }
 
     /**
@@ -56,6 +69,16 @@ class NoteListFragment : Fragment(R.layout.fragment_note_list) {
             }
 
             initializeRecyclerViewGesture()
+        }
+    }
+
+    suspend fun getSetData() {
+        //encryptionDataStoreManager.setData("sdf", "dsf")
+
+        //encryptionDataStoreManager.setData("sdf", "2215e1f1e5f")
+
+        encryptionDataStoreManager.getData("sdf", "bbb").collectLatest {
+            Timber.e("SomeLog -> $it")
         }
     }
 

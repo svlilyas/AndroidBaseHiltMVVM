@@ -68,6 +68,8 @@ dependencies {
     implementation(libs.bundles.moshi)
     implementation(libs.timber)
     implementation(libs.bundles.retrofit)
+    implementation(libs.data.store)
+    implementation(libs.bundles.gson)
     kapt(libs.hilt.compiler)
     kapt(libs.room.compiler)
 
