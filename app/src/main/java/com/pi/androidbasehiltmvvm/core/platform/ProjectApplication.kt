@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.Context
 import androidx.multidex.MultiDex
 import com.pi.androidbasehiltmvvm.core.network.NetworkConnectivityObserver
-import com.pi.data.persistence.EncryptedDataStoreManager
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
@@ -30,9 +29,6 @@ class ProjectApplication : Application() {
          */
         val connectivityObserver: NetworkConnectivityObserver by lazy {
             NetworkConnectivityObserver(appContext)
-        }
-        val encryptedDataStoreManager: EncryptedDataStoreManager by lazy {
-            EncryptedDataStoreManager(appContext)
         }
     }
 }

@@ -209,6 +209,8 @@ dependencies {
     kapt(libs.hilt.compiler)
     implementation(libs.coil)
     implementation(libs.multidex)
+    implementation(libs.data.store)
+    implementation(libs.tink)
     implementation(libs.work.manager.runtime)
 
     implementation(platform(libs.firebase.bom))

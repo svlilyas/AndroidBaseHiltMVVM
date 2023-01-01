@@ -3,6 +3,7 @@ package com.pi.androidbasehiltmvvm.features.notelist.presentation
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -17,11 +18,14 @@ import com.pi.androidbasehiltmvvm.core.utils.SwipeGesture
 import com.pi.androidbasehiltmvvm.databinding.FragmentNoteListBinding
 import com.pi.androidbasehiltmvvm.features.notelist.domain.viewmodel.NoteListViewModel
 import com.pi.androidbasehiltmvvm.features.notelist.presentation.adapter.NoteAdapter
+import com.pi.data.local.models.ExampleModel
+import com.pi.data.local.models.PaymentStatus
 import com.pi.data.persistence.EncryptedDataStoreManager
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * A @Fragment for showing all Notes
@@ -33,9 +37,8 @@ class NoteListFragment : Fragment(R.layout.fragment_note_list) {
 
     private var noteAdapter: NoteAdapter? = null
 
-    private val encryptionDataStoreManager by lazy {
-        EncryptedDataStoreManager(requireContext())
-    }
+    @Inject
+    lateinit var dataStore: EncryptedDataStoreManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -72,14 +75,24 @@ class NoteListFragment : Fragment(R.layout.fragment_note_list) {
         }
     }
 
-    suspend fun getSetData() {
-        //encryptionDataStoreManager.setData("sdf", "dsf")
+    private fun getSetData() {
+        dataStore.exampleModel = flowOf(ExampleModel(str = "222"))
 
-        //encryptionDataStoreManager.setData("sdf", "2215e1f1e5f")
+        dataStore.exampleModel.asLiveData()
+            .observe(viewLifecycleOwner) {
+                Timber.e("Value Changed -> $it")
+            }
 
-        encryptionDataStoreManager.getData("sdf", "bbb").collectLatest {
-            Timber.e("SomeLog -> $it")
-        }
+        dataStore.exampleModel = flowOf(ExampleModel(str = "333"))
+
+        dataStore.paymentStatus = flowOf(PaymentStatus.PROCEED)
+
+        dataStore.paymentStatus.asLiveData()
+            .observe(viewLifecycleOwner) {
+                Timber.e("Value(2) Changed -> $it")
+            }
+
+        dataStore.paymentStatus = flowOf(PaymentStatus.SUCCESS)
     }
 
     /**

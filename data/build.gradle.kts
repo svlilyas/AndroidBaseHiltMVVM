@@ -69,7 +69,8 @@ dependencies {
     implementation(libs.timber)
     implementation(libs.bundles.retrofit)
     implementation(libs.data.store)
-    implementation(libs.bundles.gson)
+    implementation(libs.gson)
+    implementation(libs.tink)
     kapt(libs.hilt.compiler)
     kapt(libs.room.compiler)
 

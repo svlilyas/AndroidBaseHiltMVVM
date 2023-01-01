@@ -1,79 +1,130 @@
 package com.pi.data.persistence
 
-import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.datastore.preferences.preferencesDataStore
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.pi.data.encryption.EncryptionHelper
 import com.pi.data.encryption.EncryptionHelperImpl
-import kotlinx.coroutines.CoroutineScope
+import com.pi.data.local.models.ExampleModel
+import com.pi.data.local.models.PaymentStatus
+import com.pi.data.utils.toStringOrNull
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.runBlocking
+import timber.log.Timber
 import java.io.IOException
 import javax.inject.Inject
 
 class EncryptedDataStoreManager @Inject constructor(
-    private val context: Context,
-    private val encryptionHelper: EncryptionHelper = EncryptionHelperImpl(),
-    scope: CoroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+    val dataStore: DataStore<Preferences>
 ) {
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
-        name = DATA_STORE_NAME, scope = scope
-    )
 
-    //region get data
-
-    fun <T> getData(key: String, defaultValue: T): Flow<T> =
-        getString(stringPreferencesKey(key)).map { data ->
-            Gson().fromJson(data, object : TypeToken<T>() {}.type) ?: defaultValue
-        }
-
-    private fun getString(key: Preferences.Key<String>): Flow<String?> {
-        return context.dataStore.data.catch { exception ->
+    inline fun <reified T> getData(
+        key: String, defaultValue: T
+    ): Flow<T> {
+        val classType = T::class.java
+        return dataStore.data.catch { exception ->
             if (exception is IOException) {
                 emit(emptyPreferences())
             } else {
                 throw exception
             }
         }.map { preferences ->
-            val encryptedValue = preferences[key]
+            val encryptedValue = preferences[stringPreferencesKey(key)]
             if (encryptedValue.isNullOrEmpty()) {
-                return@map null
+                return@map defaultValue
             }
-            encryptionHelper.decryptData(encryptedValue)
+
+            val encryptionHelper: EncryptionHelper = EncryptionHelperImpl()
+            val decryptedValue = encryptionHelper.decryptData(encryptedValue)
+
+            Timber.e("Get :: DecryptedValue -> $decryptedValue ${T::class} ${T::class.isData}")
+
+            val exactData: T? = try {
+                when (T::class) {
+                    Boolean::class -> decryptedValue.toBoolean() as T
+                    Float::class -> decryptedValue.toFloat() as T
+                    Int::class -> decryptedValue.toInt() as T
+                    Long::class -> decryptedValue.toLong() as T
+                    String::class -> decryptedValue as T
+                    else -> {
+                        Gson().fromJson(decryptedValue, classType)
+                    }
+                }
+            } catch (e: Exception) {
+                Timber.e(e.message.toString())
+                null
+            }
+
+            Timber.e("Get :: Result -> ${exactData.toString()}")
+
+            exactData ?: defaultValue
         }
     }
-    //endregion
 
-    //region put data
+    suspend inline fun <reified T> setData(key: String, newValue: T) {
+        val stringValue: String? = when (T::class) {
+            Boolean::class -> newValue.toStringOrNull()
+            Float::class -> newValue.toStringOrNull()
+            Int::class -> newValue.toStringOrNull()
+            Long::class -> newValue.toStringOrNull()
+            String::class -> newValue.toStringOrNull()
+            else -> {
+                Gson().toJson(newValue, object : TypeToken<T>() {}.type)
+            }
+        }
 
-    suspend fun <T> setData(key: String, newValue: T) {
-        putString(stringPreferencesKey(key), Gson().toJson(newValue))
-    }
+        Timber.e("Set :: Result -> $stringValue")
 
-    private suspend fun putString(key: Preferences.Key<String>, newValue: String?) {
-        newValue?.let { newValueNotNull ->
+        stringValue?.let { newValueNotNull ->
+            val encryptionHelper: EncryptionHelper = EncryptionHelperImpl()
+
             val encryptedValue = encryptionHelper.encryptData(newValueNotNull)
-            context.dataStore.edit { mutablePreferences ->
-                mutablePreferences[key] = encryptedValue
+            Timber.e("Set :: EncryptedValue -> $encryptedValue")
+
+            dataStore.edit { mutablePreferences ->
+                mutablePreferences[stringPreferencesKey(key)] = encryptedValue
             }
         }
     }
-    //endregion
+
+    var paymentStatus: Flow<PaymentStatus>
+        get() = getData(
+            key = PAYMENT_STATUS_KEY, defaultValue = PaymentStatus.WAITING
+        )
+        set(value) {
+            runBlocking(Dispatchers.IO) {
+                value.collectLatest {
+                    setData(PAYMENT_STATUS_KEY, it)
+                }
+            }
+        }
+
+    var exampleModel: Flow<ExampleModel>
+        get() = getData(
+            key = EXAMPLE_MODEL_KEY, defaultValue = ExampleModel()
+        )
+        set(value) {
+            runBlocking(Dispatchers.IO) {
+                value.collectLatest {
+                    setData(EXAMPLE_MODEL_KEY, it)
+                }
+            }
+        }
 
     suspend fun clear() {
-        context.dataStore.edit { mutablePreferences -> mutablePreferences.clear() }
+        dataStore.edit { mutablePreferences -> mutablePreferences.clear() }
     }
 
     companion object {
-        private const val DATA_STORE_NAME = "EncryptedDataStorePreferences"
+        private const val PAYMENT_STATUS_KEY = "PAYMENT_STATUS_KEY"
+        private const val EXAMPLE_MODEL_KEY = "EXAMPLE_MODEL_KEY"
     }
 }
