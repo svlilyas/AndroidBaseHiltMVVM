@@ -1,4 +1,4 @@
-package com.pi.androidbasehiltmvvm.core.common.data
+package com.pi.data.local.models
 
 enum class PaymentStatus {
     SUCCESS,

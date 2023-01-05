@@ -3,6 +3,8 @@ package com.pi.androidbasehiltmvvm.features.notelist.presentation
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.pi.androidbasehiltmvvm.R
@@ -16,7 +18,14 @@ import com.pi.androidbasehiltmvvm.core.utils.SwipeGesture
 import com.pi.androidbasehiltmvvm.databinding.FragmentNoteListBinding
 import com.pi.androidbasehiltmvvm.features.notelist.domain.viewmodel.NoteListViewModel
 import com.pi.androidbasehiltmvvm.features.notelist.presentation.adapter.NoteAdapter
+import com.pi.data.local.models.ExampleModel
+import com.pi.data.local.models.PaymentStatus
+import com.pi.data.persistence.EncryptedDataStoreManager
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.launch
+import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * A @Fragment for showing all Notes
@@ -28,12 +37,19 @@ class NoteListFragment : Fragment(R.layout.fragment_note_list) {
 
     private var noteAdapter: NoteAdapter? = null
 
+    @Inject
+    lateinit var dataStore: EncryptedDataStoreManager
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setUpViews()
         getViewData()
         observeData()
+
+        lifecycleScope.launch {
+            getSetData()
+        }
     }
 
     /**
@@ -57,6 +73,26 @@ class NoteListFragment : Fragment(R.layout.fragment_note_list) {
 
             initializeRecyclerViewGesture()
         }
+    }
+
+    private fun getSetData() {
+        dataStore.exampleModel = flowOf(ExampleModel(str = "222"))
+
+        dataStore.exampleModel.asLiveData()
+            .observe(viewLifecycleOwner) {
+                Timber.e("Value Changed -> $it")
+            }
+
+        dataStore.exampleModel = flowOf(ExampleModel(str = "333"))
+
+        dataStore.paymentStatus = flowOf(PaymentStatus.PROCEED)
+
+        dataStore.paymentStatus.asLiveData()
+            .observe(viewLifecycleOwner) {
+                Timber.e("Value(2) Changed -> $it")
+            }
+
+        dataStore.paymentStatus = flowOf(PaymentStatus.SUCCESS)
     }
 
     /**

@@ -4,7 +4,7 @@
 
     <data>
 
-        <import type="com.pi.androidbasehiltmvvm.core.common.data.PaymentStatus" />
+        <import type="com.pi.data.local.models.PaymentStatus" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
