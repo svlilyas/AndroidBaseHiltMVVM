@@ -1,4 +1,4 @@
-package com.pi.data.persistence
+package com.pi.data.persistence.room
 
 import androidx.room.*
 import com.pi.data.remote.response.Note

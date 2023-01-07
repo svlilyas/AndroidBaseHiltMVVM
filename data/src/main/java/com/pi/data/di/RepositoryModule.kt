@@ -1,7 +1,7 @@
 package com.pi.data.di
 
 import com.pi.data.network.MainClient
-import com.pi.data.persistence.AppDao
+import com.pi.data.persistence.room.AppDao
 import com.pi.data.repository.MainRepository
 import dagger.Module
 import dagger.Provides

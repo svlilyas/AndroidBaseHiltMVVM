@@ -71,6 +71,8 @@ dependencies {
     implementation(libs.data.store)
     implementation(libs.gson)
     implementation(libs.tink)
+    implementation(libs.androidx.security.crypto)
+    implementation(libs.kotlinx.serialization)
     kapt(libs.hilt.compiler)
     kapt(libs.room.compiler)
 

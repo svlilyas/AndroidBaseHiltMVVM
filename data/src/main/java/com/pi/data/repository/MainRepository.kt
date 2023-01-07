@@ -3,7 +3,7 @@ package com.pi.data.repository
 import androidx.annotation.WorkerThread
 import com.pi.data.mapper.ErrorResponseMapper
 import com.pi.data.network.MainClient
-import com.pi.data.persistence.AppDao
+import com.pi.data.persistence.room.AppDao
 import com.pi.data.remote.response.Note
 import com.skydoves.sandwich.*
 import kotlinx.coroutines.CoroutineDispatcher

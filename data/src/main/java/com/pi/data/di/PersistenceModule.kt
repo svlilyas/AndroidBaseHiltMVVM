@@ -3,20 +3,20 @@ package com.pi.data.di
 import android.app.Application
 import android.content.Context
 import androidx.datastore.core.DataStore
-import androidx.datastore.core.DataStoreFactory
-import androidx.datastore.core.handlers.ReplaceFileCorruptionHandler
+import androidx.datastore.dataStoreFile
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.emptyPreferences
-import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.room.Room
+import androidx.security.crypto.EncryptedFile
+import androidx.security.crypto.MasterKeys
 import com.google.crypto.tink.Aead
 import com.google.crypto.tink.KeyTemplates
 import com.google.crypto.tink.aead.AeadConfig
 import com.google.crypto.tink.integration.android.AndroidKeysetManager
-import com.pi.data.persistence.AppDao
-import com.pi.data.persistence.AppDatabase
+import com.pi.data.persistence.room.AppDao
+import com.pi.data.persistence.room.AppDatabase
 import com.pi.data.persistence.EncryptedDataStoreManager
+import com.pi.data.persistence.factory.createEncrypted
 import com.pi.data.utils.Constants.Companion.DATASTORE_FILE
 import com.pi.data.utils.Constants.Companion.ENCRYPTION_TYPE
 import com.pi.data.utils.Constants.Companion.KEYSET_NAME
@@ -37,7 +37,6 @@ object PersistenceModule {
     fun provideAead(application: Application): Aead {
         AeadConfig.register()
 
-        DataStoreFactory
         return AndroidKeysetManager.Builder()
             .withSharedPref(application, KEYSET_NAME, PREFERENCE_FILE)
             .withKeyTemplate(KeyTemplates.get(ENCRYPTION_TYPE)).withMasterKeyUri(MASTER_KEY_URI)
@@ -46,18 +45,21 @@ object PersistenceModule {
 
     @Singleton
     @Provides
-    fun providePreferencesDataStore(@ApplicationContext appContext: Context): DataStore<Preferences> =
-        PreferenceDataStoreFactory.create(corruptionHandler = ReplaceFileCorruptionHandler(
-            produceNewData = { emptyPreferences() }),
-            produceFile = { appContext.preferencesDataStoreFile(DATASTORE_FILE) })
+    fun provideEncryptedPreferencesDataStore(@ApplicationContext appContext: Context): DataStore<Preferences> =
+        PreferenceDataStoreFactory.createEncrypted {
+            EncryptedFile.Builder(
+                appContext.dataStoreFile(DATASTORE_FILE),
+                appContext,
+                MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC),
+                EncryptedFile.FileEncryptionScheme.AES256_GCM_HKDF_4KB
+            ).build()
+        }
 
     @Singleton
     @Provides
     fun provideEncryptedDataStoreManager(
-        dataStore: DataStore<Preferences>,
-        aead: Aead
-    ): EncryptedDataStoreManager =
-        EncryptedDataStoreManager(dataStore = dataStore)
+        dataStore: DataStore<Preferences>
+    ): EncryptedDataStoreManager = EncryptedDataStoreManager(dataStore = dataStore)
 
     @Provides
     @Singleton

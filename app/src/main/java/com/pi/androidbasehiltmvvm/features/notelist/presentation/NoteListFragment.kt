@@ -24,6 +24,7 @@ import com.pi.data.persistence.EncryptedDataStoreManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -76,23 +77,34 @@ class NoteListFragment : Fragment(R.layout.fragment_note_list) {
     }
 
     private fun getSetData() {
-        dataStore.exampleModel = flowOf(ExampleModel(str = "222"))
+        runBlocking {
+            dataStore.exampleModel = flowOf(ExampleModel(str = "222"))
 
-        dataStore.exampleModel.asLiveData()
-            .observe(viewLifecycleOwner) {
-                Timber.e("Value Changed -> $it")
-            }
+            dataStore.exampleModel.asLiveData()
+                .observe(viewLifecycleOwner) {
+                    Timber.e("Value Changed -> $it")
+                }
 
-        dataStore.exampleModel = flowOf(ExampleModel(str = "333"))
+            dataStore.exampleModel = flowOf(ExampleModel(str = "333"))
 
-        dataStore.paymentStatus = flowOf(PaymentStatus.PROCEED)
+            dataStore.paymentStatus = flowOf(PaymentStatus.PROCEED)
 
-        dataStore.paymentStatus.asLiveData()
-            .observe(viewLifecycleOwner) {
-                Timber.e("Value(2) Changed -> $it")
-            }
+            dataStore.paymentStatus.asLiveData()
+                .observe(viewLifecycleOwner) {
+                    Timber.e("Value(2) Changed -> $it")
+                }
 
-        dataStore.paymentStatus = flowOf(PaymentStatus.SUCCESS)
+            dataStore.paymentStatus = flowOf(PaymentStatus.SUCCESS)
+
+            dataStore.setValue(key = "deneme111",ExampleModel(str="ChangedValueParameter kdjshkhdsukhfu"))
+
+            dataStore.getValue(key = "deneme111", ExampleModel(str = "111")).asLiveData()
+                .observe(viewLifecycleOwner) {
+                    Timber.e("Value(3) Changed -> $it")
+                }
+
+            dataStore.setValue(key = "deneme111",ExampleModel(str="Second Changed aldsfkuhgewıuygfhew"))
+        }
     }
 
     /**

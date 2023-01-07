@@ -136,6 +136,11 @@ leakcanary = { module = "com.squareup.leakcanary:leakcanary-android", version.re
 
 tink = { module = "com.google.crypto.tink:tink-android", version.ref = "tink" }
 
+androidx-security-crypto = "androidx.security:security-crypto:1.0.0"
+kotlinx-serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2"
+
+androidx-test-core = "androidx.test:core:1.5.0"
+
 [bundles]
 room = ["room-ktx", "room-paging", "room-runtime"]
 kotlin = ["kotlin-reflect", "kotlin-coroutines"]
@@ -147,7 +152,7 @@ ktx = ["core-ktx", "fragment-ktx"]
 lifecycle = ["viewmodel-ktx", "livedata-ktx", "lifecycle-common"]
 navigation = ["navigation-fragment", "navigation-dynamic", "navigation-ui-ktx"]
 moshi = ["moshi-kotlin", "moshi-codegen"]
-instrumentationTest = ["junit-core", "google-truth", "espresso", "junit-ui"]
+instrumentationTest = ["junit-core", "google-truth", "espresso", "junit-ui", "androidx-test-core"]
 unitTest = ["room-testing", "junit-core", "espresso", "mockk", "junit-ktx", "robolectric", "arch", "test-coroutines", "google-truth", "mockito-inline"]
 
 

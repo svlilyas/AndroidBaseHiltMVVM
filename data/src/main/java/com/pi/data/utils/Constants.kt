@@ -6,7 +6,7 @@ class Constants {
         const val PREFERENCE_FILE = "master_key_preference"
         const val MASTER_KEY_URI = "android-keystore://master_key"
 
-        const val DATASTORE_FILE = "datastore.pb"
+        const val DATASTORE_FILE = "app_db.preferences_pb"
         const val ENCRYPTION_TYPE = "AES256_GCM"
     }
 }

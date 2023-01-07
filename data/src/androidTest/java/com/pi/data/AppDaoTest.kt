@@ -3,8 +3,8 @@ package com.pi.data
 import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.common.truth.Truth.assertThat
-import com.pi.data.persistence.AppDao
-import com.pi.data.persistence.AppDatabase
+import com.pi.data.persistence.room.AppDao
+import com.pi.data.persistence.room.AppDatabase
 import com.pi.data.remote.response.Note
 import kotlinx.coroutines.runBlocking
 import org.junit.After
